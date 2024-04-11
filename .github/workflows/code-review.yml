@@ -1,3 +1,4 @@
+name: Code Review
 on:
   pull_request:
     branches:
@@ -16,7 +17,5 @@ jobs:
       - uses: sshnaidm/gpt-code-review-action@v2.0
         with:
           openai-key: ${{ secrets.OPENAI_API_KEY }}
-          # model: 'gpt-4'
-          max-length: 8000
+          max-length: 4000
           prompt: 'Only suggest performance and readability improvements and naming conventions for this code.'
-          # post-if-error: false
