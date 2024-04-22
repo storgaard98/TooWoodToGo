@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Start the Node.js application with nodemon for auto-reloading
-CMD ["npm", "run", "dev"]
+CMD ["node node.js" ]
