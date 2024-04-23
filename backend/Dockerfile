@@ -10,11 +10,13 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+RUN npm install nodemon
+
 # Copy rest of the application
 COPY . .
 
 # Expose port
-EXPOSE 5000
+EXPOSE 9000
 
 # Start the Node.js application with nodemon for auto-reloading
 CMD ["node node.js" ]
