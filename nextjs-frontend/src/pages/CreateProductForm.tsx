@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+
+
+
 const CreateProductForm = () => {
   const [formData, setFormData] = useState({});
 
@@ -10,7 +13,7 @@ const CreateProductForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:9000/api/products', {
+      const response = await fetch(`http://node-backend:9000/api/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

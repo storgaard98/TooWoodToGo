@@ -10,6 +10,8 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+ENV NEXT_PUBLIC_NODE_URL yourNodeUrl
+
 # Copy rest of the application
 COPY . .
 

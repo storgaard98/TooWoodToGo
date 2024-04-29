@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const CreateUserForm = () => {
+interface createUserFormProps {
+  // Add props here
+  nodeUrl: string | undefined;
+}
+
+const CreateUserForm = ({ nodeUrl }: createUserFormProps) => {
   const [formData, setFormData] = useState({});
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
@@ -11,7 +16,7 @@ const CreateUserForm = () => {
     e.preventDefault();
     console.log('Creating user:', formData);
     try {
-      const response = await fetch('http://localhost:9000/api/users', {
+      const response = await fetch(`api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

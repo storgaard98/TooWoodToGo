@@ -1,13 +1,20 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 
 
-interface DeleteProductFormState {
+interface DeleteProductFormState  {
     productId: string;
 }
 
-const DeleteProductForm: React.FC<DeleteProductFormState> = () => {
-    const [productId, setProductId] = useState<string>('');
+// Define the prop types
+interface DeleteProductFormProps {
+    nodeUrl: string | undefined;
+}
+type Props = DeleteProductFormProps & DeleteProductFormState;
+
+    const DeleteProductForm: React.FC<Props> = ({ nodeUrl}) => {
+        const [productId, setProductId] = useState<string>('');
+
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setProductId(e.target.value);
@@ -16,7 +23,7 @@ const DeleteProductForm: React.FC<DeleteProductFormState> = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:9000/api/products/${productId}`, {
+            const response = await fetch(`${nodeUrl}/products/${productId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

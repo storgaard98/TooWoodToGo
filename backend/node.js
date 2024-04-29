@@ -2,10 +2,19 @@
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env.ME_CONFIG_MONGODB_URI;
+const localUri = process.env.LOCAL_URI;
 const dbName = process.env.DB_NAME;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
+/* const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+}); */
+
+const client = new MongoClient("mongodb://mongo:27017", {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -42,7 +51,7 @@ const morgan = require("morgan");
 app.use(morgan("dev"));
 // Middleware to enable CORS
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://nextjs-app-1:3000" }));
 // Middleware to parse JSON bodies
 app.use(express.json());
 
