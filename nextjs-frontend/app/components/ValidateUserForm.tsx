@@ -1,3 +1,5 @@
+"use client";
+
 import { SetStateAction, useState } from "react";
 
 interface ValidateUserFormProps {
