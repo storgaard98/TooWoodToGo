@@ -7,7 +7,7 @@ const login = () => {
     <div>
       <LoginFormular />
       <Link href="./SignUp">
-        Aren't you signed up yet? <b>Sign in</b>
+        Aren&rsquo;t you signed up yet? <b>Sign in</b>
       </Link>
     </div>
   );
