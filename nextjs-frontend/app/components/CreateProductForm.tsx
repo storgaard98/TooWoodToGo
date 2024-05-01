@@ -1,7 +1,5 @@
+"use client";
 import { useState } from 'react';
-
-
-
 
 const CreateProductForm = () => {
   const [formData, setFormData] = useState({});

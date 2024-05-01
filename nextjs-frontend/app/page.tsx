@@ -1,9 +1,17 @@
+
 // pages/index.tsx
 import React from "react";
-import ValidateUserForm from "./ValidateUserForm";
-import CreateUserForm from "./CreateUserForm";
-import CreateProductForm from "./CreateProductForm";
-import DeleteProductForm from "./DeleteProductForm";
+import ValidateUserForm from "./components/ValidateUserForm";
+import CreateUserForm from "./components/CreateUserForm";
+import CreateProductForm from "./components/CreateProductForm";
+import DeleteProductForm from "./components/DeleteProductForm";
+
+import type { Metadata } from 'next'
+
+import './globals.css'
+
+
+// These styles apply to every route in the application
 
 const nodeUrl = process.env.NEXT_PUBLIC_NODE_URL;
 
