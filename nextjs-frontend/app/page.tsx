@@ -12,7 +12,6 @@ import "./globals.css";
 const nodeUrl = process.env.NEXT_PUBLIC_NODE_URL;
 
 const HomePage = () => {
-  
   const nodeUrl = process.env.NEXT_PUBLIC_NODE_URL;
   return (
     <div className="flex justify-center items-center h-screen bg-blue-500">

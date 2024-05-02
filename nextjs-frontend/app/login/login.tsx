@@ -1,7 +1,7 @@
 import React from "react";
-import LoginFormular from "./LoginFormular";
+import LoginFormular from "../LoginFormular";
 import Link from "next/link";
-import SignUp from "./SignUp";
+import SignUp from "../signup/page";
 const login = () => {
   return (
     <div>
