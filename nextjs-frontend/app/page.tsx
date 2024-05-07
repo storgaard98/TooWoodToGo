@@ -3,8 +3,6 @@
 import React from "react";
 import LoginFormular from "./components/LoginFormular";
 import Link from "next/link";
-import SignInButton from "./components/SignInButton";
-import Logo from "./components/Logo";
 
 const nodeUrl = process.env.NEXT_PUBLIC_NODE_URL;
 
