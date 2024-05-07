@@ -1,6 +1,6 @@
 import React from "react";
 
-import Sell from "./components/sell";
+import Sell from "./components/formSell";
 
 const home = () => {
   return (

@@ -1,6 +1,6 @@
 // AudioRecorder.tsx
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 
 interface AudioRecorderProps {
   onSaveRecording: (audioBlob: Blob) => void;
@@ -14,7 +14,9 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
 
   const startRecording = async () => {
     try {
-      const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const audioStream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
       audioStreamRef.current = audioStream;
 
       const mediaRecorder = new MediaRecorder(audioStream);
@@ -27,7 +29,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
       mediaRecorder.start();
       setRecording(true);
     } catch (error) {
-      console.error('Error accessing microphone:', error);
+      console.error("Error accessing microphone:", error);
     }
   };
 
@@ -40,20 +42,58 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
   };
 
   const saveRecording = () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const audioUrl = URL.createObjectURL(audioBlob);
     onSaveRecording(audioBlob); // Call the parent component's function with the audio URL
-    console.log('Recording saved:', audioUrl);
+    console.log("Recording saved:", audioUrl);
+  };
+
+  const deleteRecording = () => {
+    setAudioChunks([]);
+  };
+
+  const playRecording = () => {
+    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    audio.play();
   };
 
   return (
     <div>
-      <button onClick={recording ? stopRecording : startRecording}>
-        {recording ? 'Stop Recording' : 'Start Recording'}
+      <button
+        onClick={recording ? stopRecording : startRecording}
+        className="py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out"
+      >
+        {recording ? "Stop Recording" : "Start Recording"}
       </button>
-      {audioChunks.length > 0 && (
-        <button onClick={saveRecording}>Save Recording</button>
-      )}
+      <br />
+      <div className="mt-4">
+        {audioChunks.length > 0 && (
+          <button
+            onClick={deleteRecording}
+            className="py-2 px-4 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
+          >
+            Delete Recording
+          </button>
+        )}
+        {audioChunks.length > 0 && (
+          <button
+            onClick={saveRecording}
+            className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out"
+          >
+            Save Recording
+          </button>
+        )}
+        {audioChunks.length > 0 && (
+          <button
+            onClick={playRecording}
+            className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out"
+          >
+            Play Recording
+          </button>
+        )}
+      </div>
     </div>
   );
 };
