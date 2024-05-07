@@ -62,7 +62,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
   return (
     <div>
       <button
-        onClick={recording ? stopRecording : startRecording}
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          recording ? stopRecording() : startRecording();
+        }}
         className="py-2 px-4 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out"
       >
         {recording ? "Stop Recording" : "Start Recording"}
@@ -71,7 +75,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
       <div className="mt-4">
         {audioChunks.length > 0 && (
           <button
-            onClick={deleteRecording}
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteRecording();
+            }}
             className="py-2 px-4 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
           >
             Delete Recording
@@ -79,7 +87,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
         )}
         {audioChunks.length > 0 && (
           <button
-            onClick={saveRecording}
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              saveRecording();
+            }}
             className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out"
           >
             Save Recording
@@ -87,7 +99,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
         )}
         {audioChunks.length > 0 && (
           <button
-            onClick={playRecording}
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              playRecording();
+            }}
             className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out"
           >
             Play Recording
