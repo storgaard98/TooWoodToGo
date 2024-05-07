@@ -86,7 +86,7 @@ async function sendDataToServer(formData: FormData) {
     form.append(key, value);
   }
 
-  const response = await fetch("/api/upload", {
+  const response = await fetch("/api/formDataSell", {
     method: "POST",
     body: form,
   });
