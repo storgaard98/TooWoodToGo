@@ -22,6 +22,9 @@ const UploadForm2 = () => {
     setModalIsOpen(false);
   };
 
+  //TODO Handle error messages from the server
+  // https://chat.openai.com/share/30e8b2ed-7fbb-4796-ac0b-517bc67a02f7
+
   const handleFileChange = (event: any) => {
     const selectedFiles = event.target.files;
     setFiles(selectedFiles);
@@ -45,7 +48,7 @@ const UploadForm2 = () => {
       formData.append(`image-${i}`, files[i], fileInfos[i].name); // Append file with its name
     }
 
-    const response = await fetch("/api/upload2", {
+    const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
     });

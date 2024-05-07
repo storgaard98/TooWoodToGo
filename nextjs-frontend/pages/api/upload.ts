@@ -21,35 +21,43 @@ export default async function handler(
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      return res.status(500).json({ error: "Error parsing the file" });
+      return res.status(500).json({ error: "Error parsing the files" });
     }
 
-    const file = files.image;
-    if (!file) {
-      return res.status(400).json({ error: "No file uploaded" });
+    if (!files || !files.image) {
+      return res.status(400).json({ error: "No files uploaded" });
     }
 
-    if (!file.path) {
-      return res.status(400).json({ error: "File upload was interrupted" });
+    const uploadedFiles = Object.values(files.image);
+
+    //const uploadedFiles = files.image ? Object.values(files.image) :[];
+
+    if (!uploadedFiles || uploadedFiles.length === 0) {
+      return res.status(400).json({ error: "No files uploaded" });
     }
 
     // Destination directory
     const uploadDir = join(process.cwd(), "public", "uploads");
-    const fileName = file.name;
-    const filePath = join(uploadDir, fileName);
 
-    // Create uploads directory if it doesn't exist
-    await fs.mkdir(uploadDir, { recursive: true });
+    await Promise.all(
+      uploadedFiles.map(async (file: any) => {
+        const fileName = file.name;
+        const filePath = join(uploadDir, fileName);
 
-    // Read the file from the temporary directory and write it to the destination directory
-    const buffer = await fs.readFile(file.path);
-    await fs.writeFile(filePath, buffer);
+        // Create uploads directory if it doesn't exist
+        await fs.mkdir(uploadDir, { recursive: true });
 
-    // Construct the file URL
-    const fileUrl = `/uploads/${fileName}`;
+        // Read the file from the temporary directory and write it to the destination directory
+        const buffer = await fs.readFile(file.path);
+        await fs.writeFile(filePath, buffer);
 
-    // Example: Save file URL to database or do any other processing
+        // Construct the file URL
+        const fileUrl = `/uploads/${fileName}`;
 
-    res.status(200).json({ message: "File uploaded successfully", fileUrl });
+        // Example: Save file URL to database or do any other processing
+      })
+    );
+
+    res.status(200).json({ message: "Files uploaded successfully" });
   });
 }
