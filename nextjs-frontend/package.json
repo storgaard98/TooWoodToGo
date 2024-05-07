@@ -1,13 +1,13 @@
 {
   "name": "nextjs-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev2": "next dev -H 0.0.0.0",
+    "dev2": "next dev --turbo -H 0.0.0.0",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
