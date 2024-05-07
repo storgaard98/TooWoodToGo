@@ -15,7 +15,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null
+    null,
   );
 
   const openModal = (index: number) => {
