@@ -1,11 +1,13 @@
 import React from "react";
-
 import Sell from "./components/sell";
+import SellButton from "./components/SellButton";
+import Square from "./components/Square";
 
 const home = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Sell></Sell>
+    <div className="h-screen w-screen flex flex-col justify-center items-center bg-white relative">
+      <Square></Square>
+      <SellButton></SellButton>
     </div>
   );
 };

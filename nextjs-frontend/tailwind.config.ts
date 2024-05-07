@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "stark-orange": "#F5821E"
+        "stark-orange": "#F5821E",
+        "stark-blue": "#002348CC",
       },
       borderRadius: {
         "3px": "3px"
