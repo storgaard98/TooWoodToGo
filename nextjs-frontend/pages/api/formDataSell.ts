@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { IncomingForm } from "formidable";
-
+import fs from "fs";
 interface UploadedImage {
   file: File;
-  name: string; // Alt text for accessibility
-  // Add more properties as needed
+  name: string;
 }
 
 export const config = {
@@ -15,7 +14,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const form = new IncomingForm();
 
@@ -23,7 +22,10 @@ export default async function handler(
     if (err) {
       return res.status(500).json({ error: "Something went wrong" });
     }
-
+    if (files.images) {
+      let uploadedImages = files as unknown as UploadedImage[];
+      storeImagesInDirectory(uploadedImages);
+    }
     console.log("Received fields:", fields.title);
     console.log("Received files:", files);
 
@@ -46,7 +48,9 @@ async function storeImagesInDirectory(files: UploadedImage[]) {
   // Move the uploaded images to the store directory
   for (const file of files) {
     const filePath = `${storeDirectory}/${file.name}`;
-    fs.renameSync(file.path, filePath);
+    // Move the uploaded images to the store directory
+    const index = files.indexOf(file); // Get the index of the file in files array
+    fs.renameSync(filePath, `newFileName${index}`); // Rename the file with the index
   }
 
   return uniqueId; // Return the unique id of the store
