@@ -21,7 +21,6 @@ const home = () => {
         <MakeASaleButton onButtonClick={toggleSquare} />
       </div>
       <ProductInformation isExpanded={isExpanded} />
-      <SellButton isExpanded={isExpanded} />
     </div>
   );
 };

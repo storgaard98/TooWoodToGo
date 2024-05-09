@@ -1,9 +1,5 @@
 import React from "react";
 
-const sellItem = () => {
-  console.log("Clicked");
-};
-
 type propsType = { isExpanded: boolean };
 
 const SellButton = ({ isExpanded }: propsType) => {
@@ -15,10 +11,7 @@ const SellButton = ({ isExpanded }: propsType) => {
     <div
       className={`fixed bottom-0 flex flex-col w-full items-center z-10  transistion-all duration-700 ease-in-out transform ${sellButtonIsExpanded}`}
     >
-      <button
-        className="btn btn-outline w-11/12 border-white text-white text-5xl h-24 border-4 rounded-xl"
-        onClick={sellItem}
-      >
+      <button className="btn btn-outline w-11/12 border-white text-white text-5xl h-24 border-4 rounded-xl">
         Sell
       </button>
     </div>

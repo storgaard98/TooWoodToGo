@@ -1,16 +1,30 @@
+"use client";
 import React, { useState } from "react";
+import SellButton from "./SellButton";
 
-interface MaterialInformationData {
+interface ProductInformationData {
+  productName: string;
+  description: string;
   quantity: number;
 }
 
 type propsType = { isExpanded: boolean };
 
 const ProductInformation = ({ isExpanded }: propsType) => {
-  let quantity = 0;
+  const [productName, setProductName] = useState("");
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
-  const materialInformationData: MaterialInformationData = {
-    quantity,
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const productInformationData: ProductInformationData = {
+      productName,
+      description,
+      quantity,
+    };
+
+    console.log("Submit ", productInformationData);
   };
 
   const formIsExpanded = isExpanded
@@ -20,7 +34,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
   //TODO: Remove the ugly arrows in the quantity input field
   //TODO: Make it possible to input other numbers that 0 in the quantity input field
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div
         className={`flex flex-col w-full items-center absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
       >
@@ -29,16 +43,19 @@ const ProductInformation = ({ isExpanded }: propsType) => {
             Upload up to 6 photos
           </p>
         </div>
-        <label className="form-control  pt-6 w-11/12">
+        <label htmlFor="productName" className="form-control  pt-6 w-11/12">
           <div className="label">
             <span className="label-text text-white text-4xl">Product Name</span>
           </div>
           <input
             type="text"
+            id="productName"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
             className="input rounded-3xl text-5xl h-32 bg-input-box-blue text-white pl-10"
           />
         </label>
-        <label className="form-control  pt-6 w-11/12">
+        <label htmlFor="description" className="form-control  pt-6 w-11/12">
           <div className="label">
             <span className="label-text text-white text-4xl">
               Make a description
@@ -46,20 +63,26 @@ const ProductInformation = ({ isExpanded }: propsType) => {
           </div>
           <input
             type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="input rounded-3xl text-5xl h-52 bg-input-box-blue text-white pl-10"
           />
         </label>
-        <label className="form-control  pt-6 w-11/12">
+        <label htmlFor="quantity" className="form-control  pt-6 w-11/12">
           <div className="label">
             <span className="label-text text-white text-4xl">Quantity</span>
           </div>
           <input
             type="number"
-            className="input rounded-3xl text-5xl h-32 bg-input-box-blue text-white pl-10"
+            id="quantity"
             value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="input rounded-3xl text-5xl h-32 bg-input-box-blue text-white pl-10"
           />
         </label>
       </div>
+      <SellButton isExpanded={isExpanded} />
     </form>
   );
 };
