@@ -2,10 +2,10 @@
 import React, { use } from "react";
 import { useState } from "react";
 
-import Sell from "./components/sell";
-import SellButton from "./components/SellButton";
 import Square from "./components/Square";
 import MaterialInformation from "./components/MaterialInformation";
+import MakeASaleButton from "./components/MakeASaleButton";
+import SellButton from "./components/SellButton";
 
 const home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,9 +18,10 @@ const home = () => {
     <div className="h-screen w-screen flex flex-col bg-white relative">
       <Square isExpanded={isExpanded} />
       <div className="flex flex-col justify-center items-center">
-        <SellButton onButtonClick={toggleSquare} />
+        <MakeASaleButton onButtonClick={toggleSquare} />
       </div>
-      <MaterialInformation />
+      <MaterialInformation isExpanded={isExpanded} />
+      <SellButton isExpanded={isExpanded} />
     </div>
   );
 };

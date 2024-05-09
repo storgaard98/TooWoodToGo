@@ -25,6 +25,12 @@ const config: Config = {
         "600px": "600px",
       },
 
+      padding:{
+        "500px": "500px",
+        "2080px": "2080px",
+        "2528px": "2528px",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
