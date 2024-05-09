@@ -16,7 +16,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const form = new IncomingForm({
@@ -40,6 +40,7 @@ export default async function handler(
       }
       // Call the storeImagesInDirectory function
       const uniqueId = await storeImagesInDirectory(images);
+      storeDataInDatabase(fields, uniqueId);
 
       // Now you can use the uniqueId to reference the images in your database
       // ...
@@ -77,7 +78,7 @@ async function storeImagesInDirectory(files: UploadedImage[]) {
 }
 
 // Function to store received data in the database
-async function storeDataInDatabase(fields: any, files: any) {
+async function storeDataInDatabase(fields: any, uniqueId: string) {
   // Store data in the database
 }
 
