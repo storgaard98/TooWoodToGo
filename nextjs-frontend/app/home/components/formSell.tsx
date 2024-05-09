@@ -19,13 +19,14 @@ const FormSell = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("images: ", images);
-
     const formData = new FormData();
     for (let i = 0; i < filesImages.length; i++) {
       formData.append(`image-${i}`, filesImages[i], images[i].name); // Append file with its name
     }
-
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("quantity", quantity.toString());
+    formData.append("audio", audioBlob as Blob);
     sendDataToServer(formData);
   };
 
@@ -68,6 +69,7 @@ const FormSell = () => {
 };
 
 async function sendDataToServer(formData: FormData) {
+  console.log("Sending data to server");
   const response = await fetch("/api/formDataSell", {
     method: "POST",
     body: formData,
