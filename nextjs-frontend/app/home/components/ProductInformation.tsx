@@ -6,7 +6,7 @@ interface MaterialInformationData {
 
 type propsType = { isExpanded: boolean };
 
-const MaterialInformation = ({ isExpanded }: propsType) => {
+const ProductInformation = ({ isExpanded }: propsType) => {
   let quantity = 0;
 
   const materialInformationData: MaterialInformationData = {
@@ -64,4 +64,4 @@ const MaterialInformation = ({ isExpanded }: propsType) => {
   );
 };
 
-export default MaterialInformation;
+export default ProductInformation;

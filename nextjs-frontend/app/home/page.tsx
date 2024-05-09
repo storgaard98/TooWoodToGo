@@ -3,9 +3,9 @@ import React, { use } from "react";
 import { useState } from "react";
 
 import Square from "./components/Square";
-import MaterialInformation from "./components/MaterialInformation";
 import MakeASaleButton from "./components/MakeASaleButton";
 import SellButton from "./components/SellButton";
+import ProductInformation from "./components/ProductInformation";
 
 const home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -20,7 +20,7 @@ const home = () => {
       <div className="flex flex-col justify-center items-center">
         <MakeASaleButton onButtonClick={toggleSquare} />
       </div>
-      <MaterialInformation isExpanded={isExpanded} />
+      <ProductInformation isExpanded={isExpanded} />
       <SellButton isExpanded={isExpanded} />
     </div>
   );
