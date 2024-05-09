@@ -5,7 +5,7 @@ import Image from "next/image";
 
 interface UploadImagesProps {
   onSaveImages: (images: UploadedImage[]) => void;
-  setFilesImages: (images : []) => void;
+  setFilesImages: (images: []) => void;
 }
 
 interface UploadedImage {
@@ -13,11 +13,14 @@ interface UploadedImage {
   name: string;
 }
 
-const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages, setFilesImages }) => {
+const UploadImages: React.FC<UploadImagesProps> = ({
+  onSaveImages,
+  setFilesImages,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null
+    null,
   );
 
   const openModal = (index: number) => {
