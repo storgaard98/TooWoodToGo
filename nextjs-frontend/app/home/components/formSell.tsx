@@ -3,18 +3,6 @@ import React, { useState } from "react";
 import AudioRecorder from "./audioRecorder";
 import UploadImages from "./uploadImages";
 
-interface FormSellProps {
-  onSubmit: (formData: FormData) => void;
-}
-
-interface FormData {
-  title: string;
-  description: string;
-  quantity: number;
-  audioBlob: Blob | null;
-  images: UploadedImage[]; // Corrected type definition
-}
-
 interface UploadedImage {
   file: File;
   name: string; // Alt text for accessibility
@@ -27,24 +15,24 @@ const FormSell = () => {
   const [quantity, setQuantity] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
+  const [filesImages, setFilesImages] = useState([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const formData: FormData = {
-      title,
-      description,
-      quantity,
-      audioBlob,
-      images,
-    };
-    console.log("Submit ", formData);
+    const formData = new FormData();
+    for (let i = 0; i < filesImages.length; i++) {
+      formData.append(`image-${i}`, filesImages[i], images[i].name); // Append file with its name
+    }
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("quantity", quantity.toString());
+    formData.append("audio", audioBlob as Blob);
     sendDataToServer(formData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <UploadImages onSaveImages={setImages} />
+      <UploadImages onSaveImages={setImages} setFilesImages={setFilesImages} />
       <label htmlFor="title">Title:</label>
       <br />
 
@@ -81,14 +69,10 @@ const FormSell = () => {
 };
 
 async function sendDataToServer(formData: FormData) {
-  const form = new FormData();
-  for (const [key, value] of Object.entries(formData)) {
-    form.append(key, value);
-  }
-
+  console.log("Sending data to server");
   const response = await fetch("/api/formDataSell", {
     method: "POST",
-    body: form,
+    body: formData,
   });
 
   if (response.ok) {
