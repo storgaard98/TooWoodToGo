@@ -1,11 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import SellButton from "./SellButton";
+import AudioRecorder from "./audioRecorder";
+
+interface FormSellProps {
+  onSubmit: (productInformationData: ProductInformationData) => void;
+}
 
 interface ProductInformationData {
   productName: string;
   description: string;
   quantity: number;
+  audioBlob: Blob | null;
 }
 
 type propsType = { isExpanded: boolean };
@@ -14,6 +20,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +29,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
       productName,
       description,
       quantity,
+      audioBlob,
     };
 
     console.log("Submit ", productInformationData);
@@ -32,7 +40,6 @@ const ProductInformation = ({ isExpanded }: propsType) => {
     : "opacity-0 pt-2080px";
 
   //TODO: Remove the ugly arrows in the quantity input field
-  //TODO: Make it possible to input other numbers that 0 in the quantity input field
   return (
     <form onSubmit={handleSubmit}>
       <div
@@ -61,13 +68,15 @@ const ProductInformation = ({ isExpanded }: propsType) => {
               Make a description
             </span>
           </div>
-          <input
-            type="text"
+          <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="input rounded-3xl text-5xl h-52 bg-input-box-blue text-white pl-10"
+            className="input rounded-3xl text-5xl h-72 bg-input-box-blue text-white p-6"
           />
+          <div className="absolute right-16 pt-28">
+            <AudioRecorder onSaveRecording={setAudioBlob} />
+          </div>
         </label>
         <label htmlFor="quantity" className="form-control  pt-6 w-11/12">
           <div className="label">
