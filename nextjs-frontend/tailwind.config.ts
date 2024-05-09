@@ -17,6 +17,7 @@ const config: Config = {
       borderRadius: {
         "3px": "3px",
         "45px": "45px",
+        "70px": "70px",
       },
 
       height:{

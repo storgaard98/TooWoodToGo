@@ -2,9 +2,9 @@ import React from "react";
 
 const MaterialInformation = () => {
   return (
-    <div className="flex flex-col w-full items-center pt-60 absolute z-10">
-      <div className=" h-600px bg-input-box-blue rounded-45px w-11/12">
-        <p className="text-upload-grey text-4xl p-7">Upload up to 6 photos</p>
+    <div className="flex flex-col w-full items-center pt-52 absolute z-10">
+      <div className=" h-600px bg-input-box-blue rounded-70px w-11/12">
+        <p className="text-upload-grey text-4xl p-11">Upload up to 6 photos</p>
       </div>
       <label className="form-control  pt-6 w-11/12">
         <div className="label">
