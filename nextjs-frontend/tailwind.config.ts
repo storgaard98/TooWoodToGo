@@ -10,10 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         "stark-orange": "#F5821E",
-        "stark-blue": "#002348CC",
+        "stark-blue": "#01346B",
+        "input-box-blue":  "#001E3E",
+        "upload-grey": "#657383",
       },
       borderRadius: {
-        "3px": "3px"
+        "3px": "3px",
+        "45px": "45px",
+      },
+
+      height:{
+        "16/17": "94.118%",
+        "600px": "600px",
       },
 
       backgroundImage: {
