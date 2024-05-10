@@ -9,6 +9,7 @@ interface SellProps {
 const Sell: React.FC<SellProps> = () => {
   // Implement the Sell component logic here
 
+
   return (
     <div>
       <h3>Hello from sell</h3>
