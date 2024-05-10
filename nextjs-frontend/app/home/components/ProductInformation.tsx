@@ -72,7 +72,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="input rounded-3xl text-5xl h-72 bg-input-box-blue text-white p-6"
+            className="input rounded-3xl text-5xl h-72 bg-input-box-blue text-white p-6 pr-205px"
           />
           <div className="absolute right-16 pt-28">
             <AudioRecorder onSaveRecording={setAudioBlob} />

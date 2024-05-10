@@ -26,6 +26,7 @@ const config: Config = {
       },
 
       padding:{
+        "205px": "205px",
         "500px": "500px",
         "2080px": "2080px",
         "2528px": "2528px",
