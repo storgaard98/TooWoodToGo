@@ -1,11 +1,26 @@
-import React from "react";
+"use client";
+import React, { use } from "react";
+import { useState } from "react";
 
-import Sell from "./components/formSell";
+import Square from "./components/Square";
+import MakeASaleButton from "./components/MakeASaleButton";
+import SellButton from "./components/SellButton";
+import ProductInformation from "./components/ProductInformation";
 
 const home = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSquare = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Sell></Sell>
+    <div className="h-screen w-screen flex flex-col bg-white relative">
+      <Square isExpanded={isExpanded} />
+      <div className="flex flex-col justify-center items-center">
+        <MakeASaleButton onButtonClick={toggleSquare} />
+      </div>
+      <ProductInformation isExpanded={isExpanded} />
     </div>
   );
 };
