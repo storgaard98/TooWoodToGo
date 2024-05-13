@@ -2,9 +2,16 @@
 import React, { useState } from "react";
 import SellButton from "./SellButton";
 import AudioRecorder from "./audioRecorder";
+import UploadImages from "./uploadImages";
 
 interface FormSellProps {
   onSubmit: (productInformationData: ProductInformationData) => void;
+}
+
+interface UploadedImage {
+  file: File;
+  name: string; // Alt text for accessibility
+  // Add more properties as needed
 }
 
 interface ProductInformationData {
@@ -12,6 +19,7 @@ interface ProductInformationData {
   description: string;
   quantity: number;
   audioBlob: Blob | null;
+  images: UploadedImage[]; // Corrected type definition
 }
 
 type propsType = { isExpanded: boolean };
@@ -21,6 +29,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +39,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
       description,
       quantity,
       audioBlob,
+      images,
     };
 
     console.log("Submit ", productInformationData);
@@ -45,10 +55,11 @@ const ProductInformation = ({ isExpanded }: propsType) => {
       <div
         className={`flex flex-col w-full items-center absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
       >
-        <div className=" h-600px bg-input-box-blue rounded-70px w-11/12">
+        <div className=" h-600px bg-input-box-blue rounded-70px w-11/12 overflow-hidden">
           <p className="text-upload-grey text-4xl p-11">
             Upload up to 6 photos
           </p>
+          <UploadImages onSaveImages={setImages} />
         </div>
         <label htmlFor="productName" className="form-control  pt-6 w-11/12">
           <div className="label">
