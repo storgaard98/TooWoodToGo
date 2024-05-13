@@ -1,6 +1,5 @@
 // AudioRecorder.tsx
 "useState";
-"useState";
 
 import React, { useState, useRef } from "react";
 
@@ -42,7 +41,6 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
       audioStreamRef.current.getTracks().forEach((track) => track.stop());
       setRecording(false);
       saveRecording();
-      saveRecording();
     }
   };
 
@@ -62,6 +60,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
     const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const audioUrl = URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
+    console.log("Playing recording:", audioUrl);
     audio.play();
   };
 
