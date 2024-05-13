@@ -1,15 +1,3 @@
-import UploadImages from "./uploadImages";
-
-interface FormData {
-  images: UploadedImage[]; // Corrected type definition
-}
-
-interface UploadedImage {
-  file: File;
-  name: string; // Alt text for accessibility
-  // Add more properties as needed
-}
-
 const FormSell = () => {
   const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
 

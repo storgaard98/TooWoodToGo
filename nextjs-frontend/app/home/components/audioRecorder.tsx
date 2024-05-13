@@ -12,6 +12,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
   const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioStreamRef = useRef<MediaStream | null>(null);
+  const [isButtonShowed, setButtonShowed] = useState<boolean>(false);
 
   const startRecording = async () => {
     try {
@@ -52,6 +53,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
 
   const deleteRecording = () => {
     setAudioChunks([]);
+    stopRecording();
   };
 
   const playRecording = () => {
@@ -63,30 +65,31 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
 
   return (
     <div>
-      <div className="flex justify-center items-center">
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation();
-            recording ? stopRecording() : startRecording();
-          }}
-          className={`btn h-auto border-0 bg-input-box-blue border-transparent rounded-3xl shadow-md hover:bg-stark-orange transition duration-300 ease-in-out ${recording ? "bg-stark-orange" : "bg-input-box-blue"}`}
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          recording ? stopRecording() : startRecording();
+          recording ? setButtonShowed(true) : setButtonShowed(false);
+        }}
+        className={`btn h-auto border-0 bg-input-box-blue border-transparent rounded-3xl shadow-md hover:bg-stark-orange transition duration-200 ease-in-out ${recording ? "bg-stark-orange" : "bg-input-box-blue"} transform -translate-y-6`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="150"
+          height="150"
+          viewBox="0 0 44 44"
+          fill="none"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="150"
-            height="150"
-            viewBox="0 0 44 44"
-            fill="none"
-          >
-            <path
-              d="M22 30.25C24.1873 30.2477 26.2844 29.3778 27.8311 27.8311C29.3778 26.2844 30.2477 24.1873 30.25 22V11C30.25 8.81196 29.3808 6.71354 27.8336 5.16637C26.2865 3.61919 24.188 2.75 22 2.75C19.812 2.75 17.7135 3.61919 16.1664 5.16637C14.6192 6.71354 13.75 8.81196 13.75 11V22C13.7523 24.1873 14.6222 26.2844 16.1689 27.8311C17.7156 29.3778 19.8127 30.2477 22 30.25ZM16.5 11C16.5 9.54131 17.0795 8.14236 18.1109 7.11091C19.1424 6.07946 20.5413 5.5 22 5.5C23.4587 5.5 24.8576 6.07946 25.8891 7.11091C26.9205 8.14236 27.5 9.54131 27.5 11V22C27.5 23.4587 26.9205 24.8576 25.8891 25.8891C24.8576 26.9205 23.4587 27.5 22 27.5C20.5413 27.5 19.1424 26.9205 18.1109 25.8891C17.0795 24.8576 16.5 23.4587 16.5 22V11ZM23.375 35.6813V41.25C23.375 41.6147 23.2301 41.9644 22.9723 42.2223C22.7144 42.4801 22.3647 42.625 22 42.625C21.6353 42.625 21.2856 42.4801 21.0277 42.2223C20.7699 41.9644 20.625 41.6147 20.625 41.25V35.6813C17.235 35.3363 14.0933 33.7466 11.8075 31.2195C9.52174 28.6924 8.25419 25.4075 8.25 22C8.25 21.6353 8.39487 21.2856 8.65273 21.0277C8.91059 20.7699 9.26033 20.625 9.625 20.625C9.98967 20.625 10.3394 20.7699 10.5973 21.0277C10.8551 21.2856 11 21.6353 11 22C11 24.9174 12.1589 27.7153 14.2218 29.7782C16.2847 31.8411 19.0826 33 22 33C24.9174 33 27.7153 31.8411 29.7782 29.7782C31.8411 27.7153 33 24.9174 33 22C33 21.6353 33.1449 21.2856 33.4027 21.0277C33.6606 20.7699 34.0103 20.625 34.375 20.625C34.7397 20.625 35.0894 20.7699 35.3473 21.0277C35.6051 21.2856 35.75 21.6353 35.75 22C35.7458 25.4075 34.4783 28.6924 32.1925 31.2195C29.9067 33.7466 26.765 35.3363 23.375 35.6813Z"
-              fill="#007BFF"
-            />
-          </svg>
-        </button>
-      </div>
-      <div className="pt-20">
+          <path
+            d="M22 30.25C24.1873 30.2477 26.2844 29.3778 27.8311 27.8311C29.3778 26.2844 30.2477 24.1873 30.25 22V11C30.25 8.81196 29.3808 6.71354 27.8336 5.16637C26.2865 3.61919 24.188 2.75 22 2.75C19.812 2.75 17.7135 3.61919 16.1664 5.16637C14.6192 6.71354 13.75 8.81196 13.75 11V22C13.7523 24.1873 14.6222 26.2844 16.1689 27.8311C17.7156 29.3778 19.8127 30.2477 22 30.25ZM16.5 11C16.5 9.54131 17.0795 8.14236 18.1109 7.11091C19.1424 6.07946 20.5413 5.5 22 5.5C23.4587 5.5 24.8576 6.07946 25.8891 7.11091C26.9205 8.14236 27.5 9.54131 27.5 11V22C27.5 23.4587 26.9205 24.8576 25.8891 25.8891C24.8576 26.9205 23.4587 27.5 22 27.5C20.5413 27.5 19.1424 26.9205 18.1109 25.8891C17.0795 24.8576 16.5 23.4587 16.5 22V11ZM23.375 35.6813V41.25C23.375 41.6147 23.2301 41.9644 22.9723 42.2223C22.7144 42.4801 22.3647 42.625 22 42.625C21.6353 42.625 21.2856 42.4801 21.0277 42.2223C20.7699 41.9644 20.625 41.6147 20.625 41.25V35.6813C17.235 35.3363 14.0933 33.7466 11.8075 31.2195C9.52174 28.6924 8.25419 25.4075 8.25 22C8.25 21.6353 8.39487 21.2856 8.65273 21.0277C8.91059 20.7699 9.26033 20.625 9.625 20.625C9.98967 20.625 10.3394 20.7699 10.5973 21.0277C10.8551 21.2856 11 21.6353 11 22C11 24.9174 12.1589 27.7153 14.2218 29.7782C16.2847 31.8411 19.0826 33 22 33C24.9174 33 27.7153 31.8411 29.7782 29.7782C31.8411 27.7153 33 24.9174 33 22C33 21.6353 33.1449 21.2856 33.4027 21.0277C33.6606 20.7699 34.0103 20.625 34.375 20.625C34.7397 20.625 35.0894 20.7699 35.3473 21.0277C35.6051 21.2856 35.75 21.6353 35.75 22C35.7458 25.4075 34.4783 28.6924 32.1925 31.2195C29.9067 33.7466 26.765 35.3363 23.375 35.6813Z"
+            fill="#007BFF"
+          />
+        </svg>
+      </button>
+      <div
+        className={`flex flex-row space-x-5 transform transition-opacity ease-in-out duration-700 ${isButtonShowed ? "opacity-100" : "opacity-0"}`}
+      >
         {audioChunks.length > 0 && (
           <button
             type="button"
@@ -94,12 +97,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
               event.stopPropagation();
               deleteRecording();
             }}
-            className=" rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
+            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-20 h-20 -translate-y-5"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="50"
+              width="60"
+              height="60"
               viewBox="0 0 25 31"
               fill="none"
             >
@@ -117,9 +120,20 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
               event.stopPropagation();
               playRecording();
             }}
-            className="w-10 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out"
+            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-20 h-20 -translate-y-5"
           >
-            Play Recording
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="60"
+              height="60"
+              viewBox="0 0 21 25"
+              fill="none"
+            >
+              <path
+                d="M20.0953 10.8765L2.90212 0.283045C2.61225 0.104267 2.28025 0.00666837 1.94041 0.000329735C1.60057 -0.0060089 1.26521 0.0791419 0.968965 0.246988C0.675543 0.412227 0.431113 0.653203 0.260814 0.945133C0.090514 1.23706 0.000490279 1.56941 0 1.908V23.0926C0.00221092 23.6005 0.204573 24.0867 0.562601 24.4444C0.920629 24.8021 1.40502 25.0019 1.90929 25C2.26126 24.9998 2.6064 24.9021 2.90689 24.7175L20.0953 14.1241C20.3716 13.9544 20.5999 13.7161 20.7583 13.432C20.9168 13.1478 21 12.8274 21 12.5015C21 12.1756 20.9168 11.8552 20.7583 11.571C20.5999 11.2869 20.3716 11.0486 20.0953 10.8789V10.8765ZM1.90929 23.0697V1.92363L19.0726 12.5003L1.90929 23.0697Z"
+                fill="#007BFF"
+              />
+            </svg>
           </button>
         )}
       </div>

@@ -49,10 +49,28 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
     onSaveImages(updatedImages);
   };
 
+  //const input = document.querySelector("input");
+  //const preview = document.querySelector(".preview");
+
   return (
-    <div className="my-4">
-      <div className="mb-4">
-        <input type="file" multiple onChange={handleFileChange} />
+    <div className="">
+      <div className="">
+        <div className="flex justify-center pt-32">
+          <label
+            htmlFor="image_uploads"
+            className="flex w-1/2 h-28 items-center justify-center text-white rounded-lg shadow-md text-4xl border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out"
+          >
+            + upload photos
+          </label>
+        </div>
+        <input
+          type="file"
+          id="image_uploads"
+          name="image_uploads"
+          multiple
+          onChange={handleFileChange}
+          className="opacity-0"
+        />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Display selected file names */}

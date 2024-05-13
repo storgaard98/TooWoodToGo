@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import { useState } from "react";
 
 import Square from "./components/Square";
@@ -15,7 +15,7 @@ const home = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-white relative">
+    <div className="h-screen w-screen flex flex-col bg-white relative overflow-y-hidden">
       <Square isExpanded={isExpanded} />
       <div className="flex flex-col justify-center items-center">
         <MakeASaleButton onButtonClick={toggleSquare} />
