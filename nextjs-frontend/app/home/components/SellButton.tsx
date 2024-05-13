@@ -3,6 +3,7 @@ import React from "react";
 type propsType = { isExpanded: boolean };
 
 const SellButton = ({ isExpanded }: propsType) => {
+  //TODO Make it red when the square is expanded and look like a cros
   const sellButtonIsExpanded = isExpanded
     ? "opacity-100 translate-y-0 pb-500px"
     : "opacity-0 translate-y-full";

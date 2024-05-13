@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-white relative z-0 py-20">
+    <div className="h-screen w-screen flex flex-col bg-white relative overflow-y-hidden z-0 py-20">
       <Profile
         pathToProfile={"https://tkpbyg.dk/media/leyd4fqj/white_logo.png"}
         profileName={"TKP BYG"}

@@ -1,4 +1,3 @@
-import { todo } from "node:test";
 import React from "react";
 
 const MakeASaleButton = ({ onButtonClick }: { onButtonClick: () => void }) => {

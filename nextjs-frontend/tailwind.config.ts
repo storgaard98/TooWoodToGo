@@ -31,6 +31,21 @@ const config: Config = {
         "500px": "500px",
         "2080px": "2080px",
         "2528px": "2528px",
+        "3px": "3px",
+        "45px": "45px",
+        "70px": "70px",
+      },
+
+      height:{
+        "16/17": "94.118%",
+        "600px": "600px",
+      },
+
+      padding:{
+        "205px": "205px",
+        "500px": "500px",
+        "2080px": "2080px",
+        "2528px": "2528px",
       },
 
       backgroundImage: {
