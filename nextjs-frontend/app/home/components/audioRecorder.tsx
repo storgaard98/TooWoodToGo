@@ -1,5 +1,6 @@
 // AudioRecorder.tsx
 "useState";
+"useState";
 
 import React, { useState, useRef } from "react";
 
@@ -40,6 +41,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
       mediaRecorderRef.current.stop();
       audioStreamRef.current.getTracks().forEach((track) => track.stop());
       setRecording(false);
+      saveRecording();
       saveRecording();
     }
   };

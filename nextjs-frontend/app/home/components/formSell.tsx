@@ -1,3 +1,26 @@
+"use client";
+import React, { useState } from "react";
+import AudioRecorder from "./audioRecorder";
+import UploadImages from "./uploadImages";
+
+interface FormSellProps {
+  onSubmit: (formData: FormData) => void;
+}
+
+interface FormData {
+  title: string;
+  description: string;
+  quantity: number;
+  audioBlob: Blob | null;
+  images: UploadedImage[]; // Corrected type definition
+}
+
+interface UploadedImage {
+  file: File;
+  name: string; // Alt text for accessibility
+  // Add more properties as needed
+}
+
 const FormSell = () => {
   const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
 
