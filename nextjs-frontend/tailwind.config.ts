@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         "stark-orange": "#F5821E",
         "stark-blue": "#01346B",
-        "input-box-blue":  "#001E3E",
+        "input-box-blue": "#001E3E",
         "product-blue": "#D9E1E9",
         "upload-grey": "#657383",
       },
@@ -21,12 +21,12 @@ const config: Config = {
         "70px": "70px",
       },
 
-      height:{
+      height: {
         "16/17": "94.118%",
         "600px": "600px",
       },
 
-      padding:{
+      padding: {
         "205px": "205px",
         "500px": "500px",
         "2080px": "2080px",
@@ -36,12 +36,12 @@ const config: Config = {
         "70px": "70px",
       },
 
-      height:{
+      height: {
         "16/17": "94.118%",
         "600px": "600px",
       },
 
-      padding:{
+      padding: {
         "205px": "205px",
         "500px": "500px",
         "2080px": "2080px",

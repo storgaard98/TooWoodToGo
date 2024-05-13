@@ -55,7 +55,7 @@ export default async function handler(
         const fileUrl = `/uploads/${fileName}`;
 
         // Example: Save file URL to database or do any other processing
-      })
+      }),
     );
 
     res.status(200).json({ message: "Files uploaded successfully" });
