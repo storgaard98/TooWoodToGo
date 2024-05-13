@@ -55,7 +55,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
       <div
         className={`flex flex-col w-full items-center absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
       >
-        <div className=" h-600px bg-input-box-blue rounded-70px w-11/12">
+        <div className=" h-600px bg-input-box-blue rounded-70px w-11/12 overflow-hidden">
           <p className="text-upload-grey text-4xl p-11">
             Upload up to 6 photos
           </p>

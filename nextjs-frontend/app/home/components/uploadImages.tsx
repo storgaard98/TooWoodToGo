@@ -72,18 +72,21 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
           className="opacity-0"
         />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="carousel gap-4 translate-y-11 h-600px w-11/12 ">
         {/* Display selected file names */}
         {uploadedImages.map((image, index) => (
-          <div key={index} className="relative">
-            <div className="mb-2">{image.name}</div>
+          <div
+            key={index}
+            className="relative carousel-item rounded-xl w-1/2 h-1/2 "
+          >
+            {/*<div className="">{image.name}</div>*/}
             <Image
               src={URL.createObjectURL(image.file)}
               alt={`Uploaded image ${index}`}
-              className="cursor-pointer"
+              className=" w-full opacity-20"
               width={100}
               height={100}
-              onClick={() => openModal(index)}
+              /*onClick={() => openModal(index)}*/
             />
             <button
               onClick={() => removeImage(index)}
@@ -93,26 +96,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
             </button>
           </div>
         ))}
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Image Modal"
-        >
-          {selectedImageIndex !== null && (
-            <Image
-              src={URL.createObjectURL(uploadedImages[selectedImageIndex].file)}
-              alt={`Uploaded image ${selectedImageIndex}`}
-              width={500}
-              height={500}
-            />
-          )}
-          <button
-            onClick={closeModal}
-            className="absolute top-0 right-0 m-4 px-4 py-2 bg-red-500 text-white rounded-md"
-          >
-            Close
-          </button>
-        </Modal>
       </div>
     </div>
   );
