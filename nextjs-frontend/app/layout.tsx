@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "TooWoodToGo",
   description: "Get rid of your waste",
+
 };
 
 export default function RootLayout({
@@ -17,6 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+              <meta name="viewport" content="width=1170, height=2532, initial-scale=1.0" />
+
       <body className={inter.className}>{children}</body>
     </html>
   );

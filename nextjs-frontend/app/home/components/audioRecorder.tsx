@@ -58,6 +58,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
     const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const audioUrl = URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
+    console.log("Playing recording:", audioUrl);
     audio.play();
   };
 

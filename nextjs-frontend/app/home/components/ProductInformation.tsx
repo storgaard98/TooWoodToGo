@@ -43,7 +43,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
   return (
     <form onSubmit={handleSubmit}>
       <div
-        className={`flex flex-col w-full items-center absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
+        className={`flex flex-col w-full items-center absolute z-10 transition-all pb-10 ease-in-out duration-700 ${formIsExpanded}`}
       >
         <div className=" h-600px bg-input-box-blue rounded-70px w-11/12">
           <p className="text-upload-grey text-4xl p-11">
@@ -91,6 +91,7 @@ const ProductInformation = ({ isExpanded }: propsType) => {
           />
         </label>
       </div>
+
       <SellButton isExpanded={isExpanded} />
     </form>
   );

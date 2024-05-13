@@ -12,6 +12,7 @@ const config: Config = {
         "stark-orange": "#F5821E",
         "stark-blue": "#01346B",
         "input-box-blue":  "#001E3E",
+        "product-blue": "#D9E1E9",
         "upload-grey": "#657383",
       },
       borderRadius: {
