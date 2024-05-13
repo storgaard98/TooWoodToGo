@@ -49,41 +49,56 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
     onSaveImages(updatedImages);
   };
 
-  //const input = document.querySelector("input");
-  //const preview = document.querySelector(".preview");
-
   return (
-    <div className="">
-      <div className="">
-        <div className="flex justify-center pt-32">
-          <label
-            htmlFor="image_uploads"
-            className="flex w-1/2 h-28 items-center justify-center text-white rounded-lg shadow-md text-4xl border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out"
-          >
-            + upload photos
-          </label>
+    <div>
+      {uploadedImages.length == 0 ? (
+        <div>
+          <div className="flex justify-center pt-32">
+            <label
+              htmlFor="image_uploads"
+              className="flex w-1/2 h-28 items-center justify-center text-white rounded-lg shadow-md text-4xl border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-50"
+            >
+              + upload photos
+            </label>
+          </div>
+          <input
+            type="file"
+            id="image_uploads"
+            name="image_uploads"
+            multiple
+            onChange={handleFileChange}
+            className="hidden"
+          />
         </div>
-        <input
-          type="file"
-          id="image_uploads"
-          name="image_uploads"
-          multiple
-          onChange={handleFileChange}
-          className="opacity-0"
-        />
-      </div>
-      <div className="carousel gap-4 translate-y-11 h-600px w-11/12 ">
+      ) : (
+        <div>
+          <div className="flex justify-center items-center pb-10">
+            <label
+              htmlFor="image_uploads"
+              className="flex justify-center items-center w-3/4 h-20 text-white rounded-lg shadow-md text-4xl border-white border-2 hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out"
+            >
+              + upload more photos
+            </label>
+          </div>
+          <input
+            type="file"
+            id="image_uploads"
+            name="image_uploads"
+            multiple
+            onChange={handleFileChange}
+            className="opacity-0"
+          />
+        </div>
+      )}
+      <div className="carousel gap-4 ">
         {/* Display selected file names */}
         {uploadedImages.map((image, index) => (
-          <div
-            key={index}
-            className="relative carousel-item rounded-xl w-1/2 h-1/2 "
-          >
+          <div key={index} className="relative carousel-item rounded-xl ">
             {/*<div className="">{image.name}</div>*/}
             <Image
               src={URL.createObjectURL(image.file)}
               alt={`Uploaded image ${index}`}
-              className=" w-full opacity-20"
+              className=" flex object-cover rounded-xl w-64 h-100"
               width={100}
               height={100}
               /*onClick={() => openModal(index)}*/
