@@ -10,7 +10,7 @@ interface ProductsProps {
 
 const products = (props: ProductsProps) => {
   return (
-    <div className=" relative px-10 py-10">
+    <div className="px-10 py-10">
       <div className="card card-side shadow-xl rounded-xl bg-product-blue py-20">
         <button className="absolute top-0 right-0 m-4 btn btn-circle h-15 w-15 border-4 bg-red-600 flex items-center justify-center border-red-600">
           <svg
