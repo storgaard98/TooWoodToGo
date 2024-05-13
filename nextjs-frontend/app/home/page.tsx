@@ -17,16 +17,14 @@ const Home = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-white relative overflow-y-hidden z-0 py-20">
+    <div className="h-screen w-screen flex flex-col bg-white overflow-y-hidden z-0">
       <Profile
-        pathToProfile={"https://tkpbyg.dk/media/leyd4fqj/white_logo.png"}
+        pathToProfile={"/image.png"}
         profileName={"TKP BYG"}
         phone={"12345678"}
         email={"johnDoe@tkpbyg.dk"}
       />
-      <h2 className="text-black font-semibold card-title text-4xl pt-20 pl-10">
-        Mail Box:{" "}
-      </h2>
+      <h4 className="text-black font-semibold card-title">Mail Box: </h4>
       {!isExpanded && (
         <div className="flex flex-col flex-wrap">
           <Products pathToImage="" productName="Randers TEGL 307" price={1} />
