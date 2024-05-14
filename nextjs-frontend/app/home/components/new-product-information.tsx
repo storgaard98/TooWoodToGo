@@ -52,7 +52,6 @@ async function storeDataInDatabase(
   }
 }
 
-
 type propsType = { isExpanded: boolean };
 
 const NewProductInformation = ({ isExpanded }: propsType) => {
@@ -75,7 +74,6 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
 
     console.log("Submit ", productInformationData);
     storeDataInDatabase(productInformationData);
-
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"
