@@ -1,9 +1,11 @@
+"use client";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Image from "next/image";
 
 interface UploadImagesProps {
   onSaveImages: (images: UploadedImage[]) => void;
+  setFilesImages: (images: []) => void;
 }
 
 interface UploadedImage {
@@ -11,7 +13,10 @@ interface UploadedImage {
   name: string;
 }
 
-const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
+const UploadImages: React.FC<UploadImagesProps> = ({
+  onSaveImages,
+  setFilesImages,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -28,17 +33,20 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
     setSelectedImageIndex(null);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: any) => {
     if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files);
+      const selectedFiles = event.target.files;
+      setFilesImages(selectedFiles);
 
-      const newUploadedImages: UploadedImage[] = selectedFiles.map((file) => ({
-        file: file,
-        name: file.name,
-      }));
-
-      setUploadedImages([...uploadedImages, ...newUploadedImages]);
-      onSaveImages([...uploadedImages, ...newUploadedImages]);
+      // Extract file names
+      const images: UploadedImage[] = [];
+      for (let i = 0; i < selectedFiles.length; i++) {
+        images.push({
+          file: selectedFiles[i],
+          name: selectedFiles[i].name,
+        });
+      }
+      onSaveImages(images);
     }
   };
 

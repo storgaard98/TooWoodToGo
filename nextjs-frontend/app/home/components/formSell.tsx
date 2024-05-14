@@ -1,9 +1,5 @@
 import UploadImages from "./uploadImages";
 
-interface FormData {
-  images: UploadedImage[]; // Corrected type definition
-}
-
 interface UploadedImage {
   file: File;
   name: string; // Alt text for accessibility
@@ -12,21 +8,25 @@ interface UploadedImage {
 
 const FormSell = () => {
   const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
+  const [filesImages, setFilesImages] = useState([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
+    for (let i = 0; i < filesImages.length; i++) {
+      formData.append(`image-${i}`, filesImages[i], images[i].name); // Append file with its name
+    }
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("quantity", quantity.toString());
+    formData.append("audio", audioBlob as Blob);
 
-    const formData: FormData = {
-      images,
-    };
-    console.log("Submit ", formData);
     sendDataToServer(formData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      //WRITTEN
-      <UploadImages onSaveImages={setImages} />
+      <UploadImages onSaveImages={setImages} setFilesImages={setFilesImages} />
       <label htmlFor="title">Title:</label>
       <br />
       <br />
@@ -36,14 +36,10 @@ const FormSell = () => {
 };
 
 async function sendDataToServer(formData: FormData) {
-  const form = new FormData();
-  for (const [key, value] of Object.entries(formData)) {
-    form.append(key, value);
-  }
-
+  console.log("Sending data to server");
   const response = await fetch("/api/formDataSell", {
     method: "POST",
-    body: form,
+    body: formData,
   });
 
   if (response.ok) {
