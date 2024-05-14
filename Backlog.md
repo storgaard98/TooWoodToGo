@@ -2,8 +2,8 @@
 
 - [ ] Create a pop-up window for the audio recording
 - [ ] Login page that works - should be real
-- [ ] Make the audio work
-- [ ]
+- [ ] Make nice CSS to save button audio
+- [ ]   
 - [ ]
 - [ ]
 - [ ]
