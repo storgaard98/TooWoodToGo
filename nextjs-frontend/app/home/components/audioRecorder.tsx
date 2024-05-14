@@ -45,7 +45,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
   };
 
   const saveRecording = () => {
-    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+    const audioBlob = new Blob(audioChunks, { type: "audio/mp4" });
     const audioUrl = URL.createObjectURL(audioBlob);
     onSaveRecording(audioBlob); // Call the parent component's function with the audio URL
     console.log("Recording saved:", audioUrl);
@@ -57,7 +57,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
   };
 
   const playRecording = () => {
-    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+    const audioBlob = new Blob(audioChunks, { type: "audio/mp4" });
     const audioUrl = URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
     console.log("Playing recording:", audioUrl);
