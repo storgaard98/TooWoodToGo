@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-
-import Square from "./components/Square";
-import MakeASaleButton from "./components/MakeASaleButton";
-import SellButton from "./components/SellButton";
-import ProductInformation from "./components/ProductInformation";
-import Products from "./components/Products";
+import Square from "./components/square";
+import MakeASaleButton from "./components/make-a-sale-button";
 import Profile from "./components/profile";
-import NewProductInformation from "./components/NewProductInformation";
+import NewProductInformation from "./components/new-product-information";
+import Products from "./components/products";
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);

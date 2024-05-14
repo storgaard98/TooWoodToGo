@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import SellButton from "./SellButton";
-import AudioRecorder from "./audioRecorder";
-import UploadImages from "./uploadImages";
+import SellButton from "./sell-button";
+import AudioRecorder from "./audio-recorder";
+import UploadImages from "./upload-Images";
 
 // Rest of the code
 

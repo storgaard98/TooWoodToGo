@@ -1,4 +1,4 @@
-import UploadImages from "./uploadImages";
+import UploadImages from "./upload-Images";
 
 interface FormData {
   images: UploadedImage[]; // Corrected type definition

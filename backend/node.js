@@ -4,14 +4,13 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env.ME_CONFIG_MONGODB_URL;
 const dbName = process.env.ME_CONFIG_MONGODB_AUTH_DATABASE;
 
-
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 async function run() {
@@ -20,14 +19,15 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
   }
 }
 run().catch(console.dir);
-
 
 // Express setup
 const express = require("express");
@@ -83,17 +83,28 @@ async function handleProductOperation(operation, data) {
         result = await productsCollection.deleteOne({ id: data });
         break;
       case "acceptPrice":
-        result = await productsCollection.updateOne({ _id: ObjectId(data) }, { $set: { acceptedPrice: true } });
+        result = await productsCollection.updateOne(
+          { _id: ObjectId(data) },
+          { $set: { acceptedPrice: true } }
+        );
         break;
       case "rejectPrice":
-        result = await productsCollection.updateOne({ _id: ObjectId(data) }, { $set: { acceptedPrice: false } });
+        result = await productsCollection.updateOne(
+          { _id: ObjectId(data) },
+          { $set: { acceptedPrice: false } }
+        );
         break;
       case "setPrice":
-        result = await productsCollection.updateOne({ _id: ObjectId(data.productId) }, { $set: { price: data.price } });
+        result = await productsCollection.updateOne(
+          { _id: ObjectId(data.productId) },
+          { $set: { price: data.price } }
+        );
         break;
       default:
         throw new Error("Invalid operation");
     }
+    console.log(`Successfully performed operation ${operation}`);
+    console.log(result);
     return result;
   } catch (error) {
     console.error("Error handling product operation:", error);
@@ -139,12 +150,24 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
 
 // Express route for inserting a product into the database
 app.post("/api/products", async (req, res) => {
-  const product = {_id: req.body.uniqueId ,uniqueId: req.body.uniqueId, title: req.body.title, price: req.body.price, description: req.body.description, acceptedPrice: false};
+  const product = {
+    _id: req.body.uniqueId,
+    uniqueId: req.body.uniqueId,
+    title: req.body.title,
+    price: req.body.price,
+    description: req.body.description,
+    acceptedPrice: false,
+  };
   try {
     const result = await handleProductOperation("insert", product);
-    res.json({ message: "Product inserted successfully", productId: result.insertedId });
+    res.json({
+      message: "Product inserted successfully",
+      productId: result.insertedId,
+    });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while inserting product" });
+    res
+      .status(500)
+      .json({ error: "An error occurred while inserting product" });
   }
 });
 
@@ -183,7 +206,6 @@ app.delete("/api/products/:id", async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting product" });
   }
 });
-
 
 // Start the server
 const server = app.listen(PORT, () => {

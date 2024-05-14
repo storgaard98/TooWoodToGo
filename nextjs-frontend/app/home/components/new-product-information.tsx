@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import SellButton from "./SellButton";
-import AudioRecorder from "./audioRecorder";
-import UploadImages from "./uploadImages";
+import SellButton from "./sell-button";
+import AudioRecorder from "./audio-recorder";
+import UploadImages from "./upload-Images";
 
 interface FormSellProps {
   onSubmit: (productInformationData: ProductInformationData) => void;
@@ -21,6 +21,37 @@ interface ProductInformationData {
   audioBlob: Blob | null;
   images: UploadedImage[]; // Corrected type definition
 }
+
+//TODO make sure that description is passed as a string
+async function storeDataInDatabase(
+  productInformationData: ProductInformationData,
+) {
+  const form = new FormData();
+  for (const [key, value] of Object.entries(productInformationData)) {
+    if (key !== "images") {
+      form.append(key, value);
+    } else {
+      for (const image of value) {
+        form.append(image.name, image.file);
+      }
+    }
+  }
+  if (FormData) {
+    const response = await fetch("/api/formDataSell", {
+      method: "POST",
+      body: form,
+    });
+
+    if (response.ok) {
+      console.log("Files uploaded successfully");
+      // Fetch uploaded image URLs after successful upload
+      const data = await response.json();
+    } else {
+      console.error("Failed to upload files");
+    }
+  }
+}
+
 
 type propsType = { isExpanded: boolean };
 
@@ -43,6 +74,8 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
     };
 
     console.log("Submit ", productInformationData);
+    storeDataInDatabase(productInformationData);
+
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"
