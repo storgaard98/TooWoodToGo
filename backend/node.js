@@ -139,7 +139,7 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
 
 // Express route for inserting a product into the database
 app.post("/api/products", async (req, res) => {
-  const product = {uniqueId: req.body.uniqueId, title: req.body.title, price: req.body.price, description: req.body.description, acceptedPrice: false};
+  const product = {_id: req.body.uniqueId ,uniqueId: req.body.uniqueId, title: req.body.title, price: req.body.price, description: req.body.description, acceptedPrice: false};
   try {
     const result = await handleProductOperation("insert", product);
     res.json({ message: "Product inserted successfully", productId: result.insertedId });
