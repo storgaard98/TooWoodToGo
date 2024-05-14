@@ -58,22 +58,58 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   };
 
   return (
-    <div className="my-4">
-      <div className="mb-4">
-        <input type="file" multiple onChange={handleFileChange} />
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div>
+      {uploadedImages.length == 0 ? (
+        <div>
+          <div className="flex justify-center pt-32">
+            <label
+              htmlFor="image_uploads"
+              className="flex w-1/2 h-28 items-center justify-center text-white rounded-lg shadow-md text-4xl border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-50"
+            >
+              + upload photos
+            </label>
+          </div>
+          <input
+            type="file"
+            id="image_uploads"
+            name="image_uploads"
+            multiple
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </div>
+      ) : (
+        <div>
+          <div className="flex justify-center items-center pb-10">
+            <label
+              htmlFor="image_uploads"
+              className="flex justify-center items-center w-3/4 h-20 text-white rounded-lg shadow-md text-4xl border-white border-2 hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out"
+            >
+              + upload more photos
+            </label>
+          </div>
+          <input
+            type="file"
+            id="image_uploads"
+            name="image_uploads"
+            multiple
+            onChange={handleFileChange}
+            className="opacity-0"
+          />
+        </div>
+      )}
+      <div className="carousel gap-4 ">
         {/* Display selected file names */}
         {uploadedImages.map((image, index) => (
-          <div key={index} className="relative">
-            <div className="mb-2">{image.name}</div>
+          <div key={index} className="relative carousel-item rounded-xl ">
+            {/*<div className="">{image.name}</div>*/}
             <Image
               src={URL.createObjectURL(image.file)}
               alt={`Uploaded image ${index}`}
-              className="cursor-pointer"
+              className=" flex object-cover rounded-xl w-64 h-100"
               width={100}
               height={100}
-              onClick={() => openModal(index)}
+              /*onClick={() => openModal(index)}*/
             />
             <button
               onClick={() => removeImage(index)}
@@ -83,26 +119,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             </button>
           </div>
         ))}
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Image Modal"
-        >
-          {selectedImageIndex !== null && (
-            <Image
-              src={URL.createObjectURL(uploadedImages[selectedImageIndex].file)}
-              alt={`Uploaded image ${selectedImageIndex}`}
-              width={500}
-              height={500}
-            />
-          )}
-          <button
-            onClick={closeModal}
-            className="absolute top-0 right-0 m-4 px-4 py-2 bg-red-500 text-white rounded-md"
-          >
-            Close
-          </button>
-        </Modal>
       </div>
     </div>
   );
