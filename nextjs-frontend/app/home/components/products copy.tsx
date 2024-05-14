@@ -10,11 +10,11 @@ interface ProductsProps {
 
 const Products = (props: ProductsProps) => {
   return (
-    <div className="relative flex flex-row m-2 bg-product-blue shadow-l rounded-xl">
-      <button className="absolute top-0 right-0 m-1 btn btn-circle border-1 bg-red-600 flex items-center justify-center border-red-600">
+    <div className="flex flex-col md:flex-row m-2 bg-product-blue shadow-l rounded-l card card-side">
+      <button className="absolute right-0 m-1 btn btn-circle border-1 bg-red-600 flex items-center justify-center border-red-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-2 w-2 stroke-white"
+          className="h-3 w-3 stroke-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -27,10 +27,10 @@ const Products = (props: ProductsProps) => {
           />
         </svg>
       </button>
-      <figure className="flex-shrink-0 rounded-xl">
-        <Image src={props.pathToImage} alt="Product" width={100} height={50} objectFit="cover"/>
+      <figure className="flex-shrink-0">
+        <Image src={"/Rectangle.png"} alt="Product" width={110} height={100} />
       </figure>
-      <div className="flex-grow text-stark-blue">
+      <div className="flex-grow card-body text-stark-blue">
         <h2 className="text-semi-bold text-lg">{props.productName}</h2>
         <p className="text-xs">Click the button to watch on Jetflix app.</p>
         <div className="card-actions justify-end md:flex">

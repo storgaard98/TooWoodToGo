@@ -27,10 +27,10 @@ const Home = () => {
       <h4 className="text-black font-semibold card-title">Mail Box: </h4>
       {!isExpanded && (
         <div className="flex flex-col flex-wrap">
-          <Products pathToImage="" productName="Randers TEGL 307" price={1} />
-          <Products pathToImage="" productName="Randers TEGL 307" price={1} />
-          <Products pathToImage="" productName="Randers TEGL 307" price={1} />
-          <Products pathToImage="" productName="Randers TEGL 307" price={1} />
+          <Products pathToImage="/Rectangle.png" productName="Randers TEGL 307" price={1} />
+          <Products pathToImage="/Rectangle.png" productName="Randers TEGL 307" price={1} />
+          <Products pathToImage="/Rectangle.png" productName="Randers TEGL 307" price={1} />
+          <Products pathToImage="/Rectangle.png" productName="Randers TEGL 307" price={1} />
         </div>
       )}
 
