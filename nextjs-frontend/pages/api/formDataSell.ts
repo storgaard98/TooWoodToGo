@@ -33,7 +33,7 @@ export default async function handler(
         }
         // Rest of your code...
         const uniqueId = storeFilesInDirectory(files, fields.productName);
-        //await storeDataInDatabase(fields, await uniqueId);
+        await storeDataInDatabase(fields, await uniqueId);
       });
     } catch (error) {
       console.error("Error in POST handler: ", error);
@@ -84,6 +84,18 @@ async function storeFilesInDirectory(files123: any, productName: string) {
 // Function to store received data in the database
 async function storeDataInDatabase(fields: any, uniqueId: string) {
   // Store data in the database
+  fetch("http://localhost:9000/api/products", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      productName: fields.productName,
+      description: fields.description,
+      price: fields.price,
+      uniqueId,
+    }),
+  });
   console.log("Storing data in the database...");
 }
 

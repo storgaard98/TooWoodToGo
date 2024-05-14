@@ -2,6 +2,8 @@
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env.ME_CONFIG_MONGODB_URL;
+const dbName = process.env.ME_CONFIG_MONGODB_AUTH_DATABASE;
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -134,6 +136,54 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
     res.status(500).json({ error: "An error occurred while setting price" });
   }
 });
+
+// Express route for inserting a product into the database
+app.post("/api/products", async (req, res) => {
+  const product = {uniqueId: req.body.uniqueId, title: req.body.title, price: req.body.price, description: req.body.description, acceptedPrice: false};
+  try {
+    const result = await handleProductOperation("insert", product);
+    res.json({ message: "Product inserted successfully", productId: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while inserting product" });
+  }
+});
+
+// Express route for getting a product from the database based on unique ID
+app.get("/api/products/:id", async (req, res) => {
+  const productId = req.params.id;
+  try {
+    const result = await handleProductOperation("getById", productId);
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while getting product" });
+  }
+});
+
+// Express route for getting all products from the database
+app.get("/api/products", async (req, res) => {
+  try {
+    const result = await handleProductOperation("get");
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while getting products" });
+  }
+});
+
+// Express route for deleting a product from the database
+app.delete("/api/products/:id", async (req, res) => {
+  const productId = req.params.id;
+  try {
+    await handleProductOperation("deleteById", productId);
+    res.json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while deleting product" });
+  }
+});
+
 
 // Start the server
 const server = app.listen(PORT, () => {
