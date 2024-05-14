@@ -37,7 +37,7 @@ async function storeDataInDatabase(
     }
   }
   if (FormData) {
-    const response = await fetch("/api/formDataSell", {
+    const response = await fetch("/api/form-data-sell", {
       method: "POST",
       body: form,
     });
@@ -85,6 +85,7 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
       >
         <div className="flex flex-col items-start justify-start w-11/12 h-1/4 bg-input-box-blue rounded-lg">
           <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+          <UploadImages onSaveImages={setImages} />
         </div>
         <label htmlFor="productName" className="form-control w-11/12">
           <div className="label">
@@ -129,7 +130,10 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
             className="input rounded-lg text-lg h-full bg-input-box-blue text-white "
           />
         </label>
+        
       </div>
+      <SellButton isExpanded={isExpanded} />
+     
     </form>
   );
 };
