@@ -80,7 +80,7 @@ async function storeFilesInDirectory(files123: any, productName: string) {
   }
   return uniqueId;
 }
-
+//TODO make sure that description is passed as a string
 // Function to store received data in the database
 async function storeDataInDatabase(fields: any, uniqueId: string) {
   // Store data in the database

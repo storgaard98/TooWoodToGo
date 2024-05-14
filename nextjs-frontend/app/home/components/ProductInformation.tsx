@@ -24,6 +24,8 @@ interface ProductInformationData {
   images: UploadedImage[]; // Corrected type definition
 }
 
+
+//TODO make sure that description is passed as a string
 async function storeDataInDatabase(
   productInformationData: ProductInformationData
 ) {
