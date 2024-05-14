@@ -18,7 +18,6 @@ const Products = (props: ProductsProps) => {
             alt="Product"
             width={100}
             height={100}
-            objectFit="cover"
             className="h-5/6 rounded-xl"
           />
         </figure>
@@ -46,16 +45,16 @@ const Products = (props: ProductsProps) => {
                 <path
                   d="M3.53555 3.53554C6.36398 6.36397 9.42811 9.42809 10.6066 10.6066"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M10.6066 3.53554C7.77817 6.36396 4.71404 9.42809 3.53553 10.6066"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
