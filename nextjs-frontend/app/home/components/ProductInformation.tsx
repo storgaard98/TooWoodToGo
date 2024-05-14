@@ -4,6 +4,8 @@ import SellButton from "./SellButton";
 import AudioRecorder from "./audioRecorder";
 import UploadImages from "./uploadImages";
 
+// Rest of the code
+
 interface FormSellProps {
   onSubmit: (productInformationData: ProductInformationData) => void;
 }
@@ -22,6 +24,34 @@ interface ProductInformationData {
   images: UploadedImage[]; // Corrected type definition
 }
 
+async function storeDataInDatabase(
+  productInformationData: ProductInformationData
+) {
+  const form = new FormData();
+  for (const [key, value] of Object.entries(productInformationData)) {
+    if (key !== "images") {
+      form.append(key, value);
+    } else {
+      for (const image of value) {
+        form.append(image.name, image.file);
+      }
+    }
+  }
+  if (FormData) {
+    const response = await fetch("/api/formDataSell", {
+      method: "POST",
+      body: form,
+    });
+
+    if (response.ok) {
+      console.log("Files uploaded successfully");
+      // Fetch uploaded image URLs after successful upload
+      const data = await response.json();
+    } else {
+      console.error("Failed to upload files");
+    }
+  }
+}
 type propsType = { isExpanded: boolean };
 
 const ProductInformation = ({ isExpanded }: propsType) => {
@@ -41,8 +71,8 @@ const ProductInformation = ({ isExpanded }: propsType) => {
       audioBlob,
       images,
     };
-
     console.log("Submit ", productInformationData);
+    storeDataInDatabase(productInformationData);
   };
 
   const formIsExpanded = isExpanded
