@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  mode: "jit",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,6 +15,8 @@ const config: Config = {
         "input-box-blue": "#001E3E",
         "product-blue": "#D9E1E9",
         "upload-grey": "#657383",
+        "cross-red": "#F00",
+        "accept-blue": "#0CD1FD",
       },
       borderRadius: {
         "3px": "3px",
@@ -24,6 +27,7 @@ const config: Config = {
       height: {
         "16/17": "94.118%",
         "600px": "600px",
+        "57%": "57%",
       },
 
       padding: {
@@ -36,22 +40,14 @@ const config: Config = {
         "70px": "70px",
       },
 
-      height: {
-        "16/17": "94.118%",
-        "600px": "600px",
-      },
-
-      padding: {
-        "205px": "205px",
-        "500px": "500px",
-        "2080px": "2080px",
-        "2528px": "2528px",
-      },
-
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+
+      boxShadow: {
+        "product-box": "4px 4px 4px 0px rgba(0, 0, 0, 0.25)",
       },
     },
   },

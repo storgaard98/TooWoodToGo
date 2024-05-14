@@ -7,7 +7,7 @@ const Square = ({ isExpanded }: propsType) => {
   //TODO make rounded corners
   return (
     <div
-      className={`rounded-t-70px absolute bottom-0 w-full bg-stark-blue transition-all duration-700 ease-in-out ${sizeOfSquareClass}`}
+      className={`rounded-t-70px absolute bottom-0 w-full bg-stark-blue transition-all duration-700 ease-in-out z-20 ${sizeOfSquareClass}`}
     ></div>
   );
 };

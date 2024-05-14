@@ -3,14 +3,14 @@ import React from "react";
 const MakeASaleButton = ({ onButtonClick }: { onButtonClick: () => void }) => {
   return (
     //TODO Remove the hover effect
-    <div className="fixed bottom-0 pb-48 z-20">
+    <div className="z-30">
       <button
-        className="btn btn-circle btn-outline rotate-45 h-48 w-48 border-white border-4"
+        className="btn btn-circle btn-outline rotate-45 h-16 w-16 border-white border-4"
         onClick={onButtonClick}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-24 w-24 stroke-white"
+          className="h-12 w-12 stroke-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

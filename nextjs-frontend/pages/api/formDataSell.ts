@@ -11,7 +11,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "POST") {
     const form = new IncomingForm({
@@ -65,14 +65,14 @@ async function storeFilesInDirectory(files123: any, productName: string) {
       if (file.mimetype !== "audio/mp4") {
         fs.renameSync(
           file.filepath,
-          path.join(storeDirectory, file.newFilename)
+          path.join(storeDirectory, file.newFilename),
         ); // Move and rename the file
       } else {
         //Just move the file and not rename it
         console.log("blob");
         fs.renameSync(
           file.filepath,
-          path.join(storeDirectory, file.newFilename)
+          path.join(storeDirectory, file.newFilename),
         ); // Move and rename the file
       }
       console.log("uniqueId: ", uniqueId);

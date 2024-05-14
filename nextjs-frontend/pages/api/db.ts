@@ -29,7 +29,7 @@ const BACKEND_URL = "http://localhost:9000"; // Change this to your backend URL
 async function fetchFromBackend(endpoint: string, options?: RequestInit) {
   const NextApiResponse = await fetch(
     `${BACKEND_URL}/api/${endpoint}`,
-    options
+    options,
   );
   const data = await NextApiResponse.json();
   return data;

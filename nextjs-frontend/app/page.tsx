@@ -12,7 +12,7 @@ const loginPage = () => {
   return (
     <div className="bg-stark-orange h-screen w-screen flex flex-col items-center justify-center">
       <LoginFormular />
-      <Link href="./SignUp" className="label-text text-white pt-3 text-3xl">
+      <Link href="./SignUp" className="label-text text-white pt-1 text-xl">
         Aren&rsquo;t you signed up yet? <b>Sign up</b>
       </Link>
       <SignInButton />

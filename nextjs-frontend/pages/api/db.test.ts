@@ -1,6 +1,12 @@
-const { getAllProducts, addProduct, updateProduct, deleteProduct, acceptPrice, rejectPrice, setPrice } = require("./db");
-
-
+const {
+  getAllProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  acceptPrice,
+  rejectPrice,
+  setPrice,
+} = require("./db");
 
 describe("API Tests", () => {
   beforeEach(() => {
@@ -8,16 +14,15 @@ describe("API Tests", () => {
     global.fetch = jest.fn().mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve({}),
-      })
+      }),
     );
   });
-
 
   test("getAllProducts should call fetch with the correct endpoint", async () => {
     await getAllProducts();
     expect(fetch).toHaveBeenCalledWith(
       "http://localhost:9000/api/products",
-      undefined
+      undefined,
     );
   });
 
@@ -55,7 +60,7 @@ describe("API Tests", () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(productData),
-      }
+      },
     );
   });
 
@@ -66,7 +71,7 @@ describe("API Tests", () => {
       "http://localhost:9000/api/products/123",
       {
         method: "DELETE",
-      }
+      },
     );
   });
 
@@ -77,7 +82,7 @@ describe("API Tests", () => {
       "http://localhost:9000/api/products/123/acceptPrice",
       {
         method: "PUT",
-      }
+      },
     );
   });
 
@@ -88,7 +93,7 @@ describe("API Tests", () => {
       "http://localhost:9000/api/products/123/rejectPrice",
       {
         method: "PUT",
-      }
+      },
     );
   });
 
@@ -104,7 +109,7 @@ describe("API Tests", () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ price }),
-      }
+      },
     );
   });
 });
