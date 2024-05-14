@@ -45,21 +45,16 @@ const ProductInformation = ({ isExpanded }: propsType) => {
     console.log("Submit ", productInformationData);
   };
 
-  const formIsExpanded = isExpanded
-    ? "opacity-100 pt-52"
-    : "opacity-0 pt-2080px";
+  const formIsExpanded = isExpanded ? "opacity-100" : "opacity-0";
 
   //TODO: Remove the ugly arrows in the quantity input field
   return (
     <form onSubmit={handleSubmit}>
       <div
-        className={`flex flex-col w-full items-center absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
+        className={`flex flex-col w-full items-stretch absolute z-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
       >
-        <div className=" h-600px bg-input-box-blue rounded-70px w-11/12 overflow-hidden">
-          <p className="text-upload-grey text-4xl p-11">
-            Upload up to 6 photos
-          </p>
-          <UploadImages onSaveImages={setImages} />
+        <div className=" flex flex-col justify-center items-center h-1/2 bg-input-box-blue rounded-3xl ">
+          <p className="text-upload-grey">Upload up to 6 photos</p>
         </div>
         <label htmlFor="productName" className="form-control  pt-6 w-11/12">
           <div className="label">

@@ -21,7 +21,7 @@ const profile = (props: ProfileProps) => {
           height={150}
         />
         <div>
-          <h3 className="font-bold text-stark-blue">{props.profileName}</h3>
+          <h3 className="font-bold text-input-box-blue">{props.profileName}</h3>
           <div className="flex flex-col">
             <p className="py-1 text-slate-400">Phone : {props.phone}</p>
             <p className="py-1 text-slate-400">Email : {props.email}</p>

@@ -15,6 +15,8 @@ const config: Config = {
         "input-box-blue": "#001E3E",
         "product-blue": "#D9E1E9",
         "upload-grey": "#657383",
+        "cross-red": "#F00",
+        "accept-blue": "#0CD1FD",
       },
       borderRadius: {
         "3px": "3px",
@@ -25,7 +27,9 @@ const config: Config = {
       height: {
         "16/17": "94.118%",
         "600px": "600px",
+        "57%":"57%",
       },
+
 
       padding: {
         "205px": "205px",
@@ -42,6 +46,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+
+      boxShadow: {
+        'product-box': '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      }
     },
   },
   plugins: [require("daisyui")],
