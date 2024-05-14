@@ -53,10 +53,10 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
     <div>
       {uploadedImages.length == 0 ? (
         <div>
-          <div className="flex justify-center pt-32">
+          <div className="flex justify-center">
             <label
               htmlFor="image_uploads"
-              className="flex w-1/2 h-28 items-center justify-center text-white rounded-lg shadow-md text-4xl border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-50"
+              className="flex h-14 items-center justify-center text-white rounded-lg shadow-md text-l border-white border-2 cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-20"
             >
               + upload photos
             </label>
@@ -75,7 +75,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
           <div className="flex justify-center items-center pb-10">
             <label
               htmlFor="image_uploads"
-              className="flex justify-center items-center w-3/4 h-20 text-white rounded-lg shadow-md text-4xl border-white border-2 hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out"
+              className="flex justify-center items-center w-3/4 h-14 text-white rounded-lg shadow-md text-l border-white border-2 hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-20"
             >
               + upload more photos
             </label>
@@ -98,7 +98,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
             <Image
               src={URL.createObjectURL(image.file)}
               alt={`Uploaded image ${index}`}
-              className=" flex object-cover rounded-xl w-64 h-100"
+              className="flex object-cover rounded-xl w-32 h-10"
               width={100}
               height={100}
               /*onClick={() => openModal(index)}*/

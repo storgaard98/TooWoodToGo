@@ -18,7 +18,7 @@ const Products = (props: ProductsProps) => {
             alt="Product"
             width={100}
             height={100}
-            className="h-5/6 rounded-xl"
+            className="h-5/6 rounded-xl object-cover"
           />
         </figure>
 
