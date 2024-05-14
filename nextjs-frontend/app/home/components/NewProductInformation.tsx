@@ -45,16 +45,61 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
     console.log("Submit ", productInformationData);
   };
   const formIsExpanded = isExpanded
-    ? "opacity-100 z-20 translate-y-0"
+    ? "opacity-100 translate-y-0"
     : "opacity-0 translate-y-full";
   return (
-    <div
-      className={`absolute w-full h-16/17 flex flex-col items-center bottom-0 pt-10 transition-all ease-in-out duration-700 ${formIsExpanded}`}
-    >
-      <div className="flex flex-col items-start justify-start w-11/12 h-1/3 bg-input-box-blue rounded-3xl">
-        <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+    <form onSubmit={handleSubmit}>
+      <div
+        className={`absolute w-full h-16/17 flex flex-col items-center bottom-0 pt-10 transition-all ease-in-out duration-700 z-20 ${formIsExpanded}`}
+      >
+        <div className="flex flex-col items-start justify-start w-11/12 h-1/4 bg-input-box-blue rounded-lg">
+          <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+        </div>
+        <label htmlFor="productName" className="form-control w-11/12">
+          <div className="label">
+            <span className="label-text text-white text-sm">Product Name</span>
+          </div>
+          <input
+            type="text"
+            id="productName"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            className="input rounded-lg text-m bg-input-box-blue text-white"
+          />
+        </label>
+        <label
+          htmlFor="description"
+          className="form-control w-11/12 h-1/4 flex flex-col"
+        >
+          <div className="label">
+            <span className="label-text text-white text-sm">
+              Make a description
+            </span>
+          </div>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="input rounded-lg text-m h-full bg-input-box-blue text-white pr-28"
+          />
+          <div className="absolute right-5 mt-10">
+            <AudioRecorder onSaveRecording={setAudioBlob} />
+          </div>
+        </label>
+        <label htmlFor="quantity" className="form-control w-11/12">
+          <div className="label">
+            <span className="label-text text-white text-sm ">Quantity</span>
+          </div>
+          <input
+            type="number"
+            id="quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="input rounded-lg text-lg h-full bg-input-box-blue text-white "
+          />
+        </label>
       </div>
-    </div>
+    </form>
   );
 };
 

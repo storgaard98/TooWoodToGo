@@ -73,12 +73,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
           recording ? stopRecording() : startRecording();
           recording ? setButtonShowed(true) : setButtonShowed(false);
         }}
-        className={`btn h-auto border-0 bg-input-box-blue border-transparent rounded-3xl shadow-md hover:bg-stark-orange transition duration-200 ease-in-out ${recording ? "bg-stark-orange" : "bg-input-box-blue"} transform -translate-y-6`}
+        className={`btn h-auto border-none bg-input-box-blue border-transparent rounded-2xl shadow-md hover:bg-stark-orange transition duration-200 ease-in-out ${recording ? "bg-stark-orange" : "bg-input-box-blue"} `}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="150"
-          height="150"
+          width="70"
+          height="70"
           viewBox="0 0 44 44"
           fill="none"
         >
