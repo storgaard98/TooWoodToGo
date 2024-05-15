@@ -69,7 +69,7 @@ const Home = () => {
   const toggleSquare = () => {
     setIsExpanded(!isExpanded);
   };
-
+  //TODO fetch products from database
   async function fetchProductsFromDatabase() {
     // Replace this with your actual fetch function
     const response = await fetch("/api/products");
