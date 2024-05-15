@@ -4,49 +4,36 @@ interface ModalProps {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   removeProduct: () => void;
-  id: number;
 }
 
-const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) =>
-  showModal && (
-    <>
-      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-      <div className="modal bg-input-box-blue" role="dialog">
+const Modal = (props: ModalProps) =>
+  props.showModal && (
+    <div className="z50">
+      <input
+        type="checkbox"
+        id="my_modal_7"
+        className="modal-toggle"
+        checked={props.showModal}
+        readOnly
+      />
+      <div className="modal" role="dialog">
         <div className="modal-box">
-          <h3 className="text-lg font-bold text-stark-orange">Hello!</h3>
-          <p className="py-4 text-stark-blue">
-            This modal works with a hidden checkbox!
-          </p>
-          <button
-            className="btn bg-accept-blue text-white"
-            onClick={() => {
-              // Delete the product
-              console.log("Product deleted");
-              setShowModal(false);
-            }}
-          >
-            Yes
+          <h3 className="text-lg font-bold">Hello!</h3>
+          <p className="py-4">This modal works with a hidden checkbox!</p>
+          <button onClick={props.removeProduct}>
+            Delete Product
           </button>
-          <button
-            className="btn bg-cross-red text-white"
-            onClick={() => {
-              // Do nothing
-              console.log("Cancelled");
-              setShowModal(false);
-            }}
-          >
-            No
-          </button>
+          <button onClick={() => props.setShowModal(false)}>Close</button>
         </div>
         <label
-          className="modal-backdrop bg-upload-grey"
+          className="modal-backdrop"
           htmlFor="my_modal_7"
-          onClick={() => setShowModal(false)}
+          onClick={() => props.setShowModal(false)}
         >
           Close
         </label>
       </div>
-    </>
+    </div>
   );
 
 export default Modal;
