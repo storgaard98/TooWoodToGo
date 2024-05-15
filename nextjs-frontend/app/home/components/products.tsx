@@ -13,10 +13,12 @@ interface ProductsProps {
 
 const Products = (props: ProductsProps) => {
   const [showModal, setShowModal] = useState(false);
+  
+  
   function updatePriceStatus(status: string) {
     if (status === "Reject") handleRejectPrice();
     console.log(`Price ${status}ed`);
-    fetch("/api/update-price-status", {
+/*     fetch("/api/update-price-status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +31,7 @@ const Products = (props: ProductsProps) => {
       })
       .catch((error) => {
         console.error("Error:", error);
-      });
+      }); */
   }
 
   function handleRejectPrice() {
@@ -65,7 +67,8 @@ const Products = (props: ProductsProps) => {
             >
               <p className="p-2 ">Reject</p>
             </button>
-            <button
+            <Modal showModal={showModal} setShowModal={setShowModal} removeProduct={() => props.removeProduct(props.id)}/>
+                        <button
               className="badge badge-outline hover:bg-input-box-blue hover:text-white  border-input-box-blue hover:border-transparent bg-accept-blue w-24"
               onClick={() => updatePriceStatus("Accept")}
               type="button"

@@ -16,14 +16,16 @@ const Modal = (props: ModalProps) =>
         checked={props.showModal}
         readOnly
       />
-      <div className="modal" role="dialog">
-        <div className="modal-box">
+      <div className="modal bg-stark-blue text-white" role="dialog">
+        <div className="modal-box p-4">
           <h3 className="text-lg font-bold">Hello!</h3>
-          <p className="py-4">This modal works with a hidden checkbox!</p>
-          <button onClick={props.removeProduct}>
+          <p className="py-4">Do you want to delete the product!</p>
+          <button onClick={props.removeProduct} className="bg-stark-orange text-white py-2 px-4 rounded">
             Delete Product
           </button>
-          <button onClick={() => props.setShowModal(false)}>Close</button>
+          <button onClick={() => props.setShowModal(false)} className="bg-input-box-blue text-white py-2 px-4 rounded ml-2">
+            Close
+          </button>
         </div>
         <label
           className="modal-backdrop"
