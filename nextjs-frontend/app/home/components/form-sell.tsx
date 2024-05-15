@@ -1,4 +1,4 @@
-import UploadImages from "./uploadImages";
+import UploadImages from "./upload-Images";
 
 interface FormData {
   images: UploadedImage[]; // Corrected type definition
@@ -25,7 +25,6 @@ const FormSell = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      //WRITTEN
       <UploadImages onSaveImages={setImages} />
       <label htmlFor="title">Title:</label>
       <br />
@@ -36,7 +35,7 @@ const FormSell = () => {
 };
 
 async function sendDataToServer(formData: FormData) {
-  const form = new FormData();
+  /* const form = new FormData();
   for (const [key, value] of Object.entries(formData)) {
     form.append(key, value);
   }
@@ -52,7 +51,7 @@ async function sendDataToServer(formData: FormData) {
     const data = await response.json();
   } else {
     console.error("Failed to upload files");
-  }
+  } */
 }
 
 export default FormSell;

@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import Modal from "./modal";
 
 interface ProductsProps {
   productName: string;
   price: number;
   pathToImage: string;
+  removeProduct: (id: number) => void;
+  id: number;
 }
 
 const Products = (props: ProductsProps) => {
+  const [showModal, setShowModal] = useState(false);
+  function updatePriceStatus(status: string) {
+    if (status === "Reject") handleRejectPrice();
+    console.log(`Price ${status}ed`);
+    fetch("/api/update-price-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: status }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  function handleRejectPrice() {
+    console.log("Price Rejected");
+    console.log("Do you want to delete the product?");
+    setShowModal(true);
+    // Add popup to ask user if they want to delete the product
+    // If yes, delete the product
+    // If no, do nothing
+  }
+
   return (
     <div className="flex flex-col flex-wrap">
       <div className="relative flex flex-row m-2 bg-product-blue rounded-2xl h-32 shadow-product-box">
@@ -18,8 +50,7 @@ const Products = (props: ProductsProps) => {
             alt="Product"
             width={100}
             height={100}
-            objectFit="cover"
-            className="h-5/6 rounded-xl"
+            className="h-5/6 rounded-xl object-cover"
           />
         </figure>
 
@@ -27,15 +58,26 @@ const Products = (props: ProductsProps) => {
           <h1 className="text-lg ">{props.productName}</h1>
           <p className="text-sm">This is a small description.</p>
           <div className="absolute bottom-1 right-1 flex flex-row gap-3">
-            <button className="badge badge-outline hover:bg-accept-blue hover:text-white text-accept-blue border-accept-blue hover:border-transparent bg-input-box-blue w-24">
+            <button
+              className="badge badge-outline hover:bg-accept-blue hover:text-white text-accept-blue border-accept-blue hover:border-transparent bg-input-box-blue w-24"
+              onClick={() => updatePriceStatus("Reject")}
+              type="button"
+            >
               <p className="p-2 ">Reject</p>
             </button>
-            <button className="badge badge-outline hover:bg-input-box-blue hover:text-white  border-input-box-blue hover:border-transparent bg-accept-blue w-24">
+            <button
+              className="badge badge-outline hover:bg-input-box-blue hover:text-white  border-input-box-blue hover:border-transparent bg-accept-blue w-24"
+              onClick={() => updatePriceStatus("Accept")}
+              type="button"
+            >
               <p className="p-1">Accept</p>
             </button>
           </div>
           <div>
-            <button className="absolute top-0 right-0 m-1 w-6 h-6 flex items-center justify-center rounded-full bg-cross-red">
+            <button
+              className="absolute top-0 right-0 m-1 w-6 h-6 flex items-center justify-center rounded-full bg-cross-red"
+              onClick={() => props.removeProduct(props.id)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
@@ -46,16 +88,16 @@ const Products = (props: ProductsProps) => {
                 <path
                   d="M3.53555 3.53554C6.36398 6.36397 9.42811 9.42809 10.6066 10.6066"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M10.6066 3.53554C7.77817 6.36396 4.71404 9.42809 3.53553 10.6066"
                   stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>

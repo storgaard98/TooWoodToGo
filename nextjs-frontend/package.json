@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "jest",
     "dev2": "next dev --turbo -H 0.0.0.0",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
@@ -15,8 +16,11 @@
     "@babel/preset-react": "^7.24.1",
     "@kinde-oss/kinde-auth-nextjs": "^2.2.4",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "formidable": "^3.5.1",
+    "fs": "^0.0.1-security",
     "http-proxy-middleware": "^3.0.0",
+    "jest": "^29.7.0",
     "mime": "^4.0.3",
     "mine": "^0.1.0",
     "multer": "^1.4.5-lts.1",
@@ -31,7 +35,7 @@
     "@types/formidable": "^3.4.5",
     "@types/multer": "^1.4.11",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.2",
     "@types/react-dom": "^18",
     "@types/react-modal": "^3.16.3",
     "autoprefixer": "^10.0.1",
@@ -42,6 +46,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5"
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
   }
 }

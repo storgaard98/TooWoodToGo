@@ -27,9 +27,8 @@ const config: Config = {
       height: {
         "16/17": "94.118%",
         "600px": "600px",
-        "57%":"57%",
+        "57%": "57%",
       },
-
 
       padding: {
         "205px": "205px",
@@ -48,8 +47,8 @@ const config: Config = {
       },
 
       boxShadow: {
-        'product-box': '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-      }
+        "product-box": "4px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [require("daisyui")],

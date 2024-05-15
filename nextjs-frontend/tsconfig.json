@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "types": ["jest", "node"],
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -21,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/upload/upload.js", "app/home/components/audioRecorder.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/upload/upload.js", "app/home/components/audio-recorder.tsx"],
   "exclude": ["node_modules"]
 }

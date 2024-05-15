@@ -1,9 +1,9 @@
 "use client";
 // pages/index.tsx
 import React from "react";
-import LoginFormular from "./components/LoginFormular";
+import LoginFormular from "./components/login-formular";
 import Link from "next/link";
-import SignInButton from "./components/SignInButton";
+import SignInButton from "./components/sign-in-button";
 import Logo from "./components/Logo";
 
 const nodeUrl = process.env.NEXT_PUBLIC_NODE_URL;

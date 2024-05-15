@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import SellButton from "./SellButton";
-import AudioRecorder from "./audioRecorder";
-import UploadImages from "./uploadImages";
+import SellButton from "./sell-button";
+import AudioRecorder from "./audio-recorder";
+import UploadImages from "./upload-Images";
 
 interface FormSellProps {
   onSubmit: (productInformationData: ProductInformationData) => void;
@@ -20,6 +20,36 @@ interface ProductInformationData {
   quantity: number;
   audioBlob: Blob | null;
   images: UploadedImage[]; // Corrected type definition
+}
+
+//TODO make sure that description is passed as a string
+async function storeDataInDatabase(
+  productInformationData: ProductInformationData
+) {
+  const form = new FormData();
+  for (const [key, value] of Object.entries(productInformationData)) {
+    if (key !== "images") {
+      form.append(key, value);
+    } else {
+      for (const image of value) {
+        form.append(image.name, image.file);
+      }
+    }
+  }
+  if (FormData) {
+    const response = await fetch("/api/form-data-sell", {
+      method: "POST",
+      body: form,
+    });
+
+    if (response.ok) {
+      console.log("Files uploaded successfully");
+      // Fetch uploaded image URLs after successful upload
+      const data = await response.json();
+    } else {
+      console.error("Failed to upload files");
+    }
+  }
 }
 
 type propsType = { isExpanded: boolean };
@@ -43,6 +73,7 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
     };
 
     console.log("Submit ", productInformationData);
+    storeDataInDatabase(productInformationData);
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"
@@ -52,8 +83,12 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
       <div
         className={`absolute w-full h-16/17 flex flex-col items-center bottom-0 pt-10 transition-all ease-in-out duration-700 z-20 ${formIsExpanded}`}
       >
-        <div className="flex flex-col items-start justify-start w-11/12 h-1/4 bg-input-box-blue rounded-lg">
-          <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+        <div className="flex flex-col w-11/12 h-1/4 bg-input-box-blue rounded-lg overflow-hidden">
+          <div className="flex flex-col items-start justify-start">
+            <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+          </div>
+
+          <UploadImages onSaveImages={setImages} />
         </div>
         <label htmlFor="productName" className="form-control w-11/12">
           <div className="label">
@@ -99,6 +134,7 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
           />
         </label>
       </div>
+      <SellButton isExpanded={isExpanded} />
     </form>
   );
 };
