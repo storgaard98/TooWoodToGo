@@ -17,6 +17,7 @@ const config: Config = {
         "upload-grey": "#657383",
         "cross-red": "#F00",
         "accept-blue": "#0CD1FD",
+        "product-box-blue": "#D9D9D9",
       },
       borderRadius: {
         "3px": "3px",
