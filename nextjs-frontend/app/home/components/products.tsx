@@ -5,10 +5,10 @@ import Modal from "./modal";
 
 interface ProductsProps {
   productName: string;
-  price: number;
+  price: string;
   pathToImage: string;
-  removeProduct: (id: number) => void;
-  id: number;
+  removeProduct: (id: string) => void;
+  id: string;
 }
 
 const Products = (props: ProductsProps) => {

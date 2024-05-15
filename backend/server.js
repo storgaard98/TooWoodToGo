@@ -121,7 +121,6 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
 app.post("/api/products", async (req, res) => {
   const product = {
     _id: req.body.uniqueId,
-    uniqueId: req.body.uniqueId,
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,

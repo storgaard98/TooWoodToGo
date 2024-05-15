@@ -8,76 +8,32 @@ import NewProductInformation from "./components/new-product-information";
 import Products from "./components/products";
 
 type Product = {
-  id: number;
+  id: string;
   productName: string;
-  price: number;
+  price: string;
   pathToImage: string;
 };
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      productName: "Randers TEGL 307",
-      pathToImage: "/Rectangle.png",
-      price: 1,
-    },
-    {
-      id: 2,
-      productName: "Product 2",
-      price: 200,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 3,
-      productName: "Product 3",
-      price: 300,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 4,
-      productName: "Product 4",
-      price: 400,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 5,
-      productName: "Product 5",
-      price: 500,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 6,
-      productName: "Product 6",
-      price: 600,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 7,
-      productName: "Product 7",
-      price: 700,
-      pathToImage: "/Rectangle.png",
-    },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  /*   useEffect(() => {
+     useEffect(() => {
     // Replace this with your actual fetch function
     fetchProductsFromDatabase().then(setProducts);
-  }, []); */
+  }, []);
 
   const toggleSquare = () => {
     setIsExpanded(!isExpanded);
   };
-  //TODO fetch products from database
   async function fetchProductsFromDatabase() {
     // Replace this with your actual fetch function
-    const response = await fetch("/api/products");
+    const response = await fetch("/api/collect-products");
     const data = await response.json();
     return data;
   }
 
-  function removeProduct(id: number) {
+  function removeProduct(id: string) {
     console.log("Product removed");
     const updatedProducts = products.filter((product) => product.id !== id);
     setProducts(updatedProducts);
