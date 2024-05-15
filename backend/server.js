@@ -116,7 +116,10 @@ async function handleProductOperation(operation, data) {
 
 // Express route for accepting a price for a product
 app.put("/api/products/:id/acceptPrice", async (req, res) => {
+  console.log("Accepting price");
+
   const productId = req.params.id;
+  console.log("productId", productId);
   try {
     await handleProductOperation("acceptPrice", productId);
     res.json({ message: "Price accepted successfully" });
@@ -127,6 +130,7 @@ app.put("/api/products/:id/acceptPrice", async (req, res) => {
 
 // Express route for rejecting a price for a product
 app.put("/api/products/:id/rejectPrice", async (req, res) => {
+  console.log("rejectPrice");
   const productId = req.params.id;
   try {
     await handleProductOperation("rejectPrice", productId);

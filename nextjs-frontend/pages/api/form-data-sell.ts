@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IncomingForm } from "formidable";
+import formidable, { IncomingForm } from "formidable";
 import fs from "fs";
 import path from "path";
 
@@ -11,7 +11,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const form = new IncomingForm({
@@ -31,7 +31,7 @@ export default async function handler(
           }
           return res.status(500).json({ error: "Something went wrong" });
         }
-        // Rest of your code...
+
         const uniqueId = storeFilesInDirectory(files, fields.productName);
         await storeDataInDatabase(fields, await uniqueId);
       });
@@ -45,7 +45,7 @@ export default async function handler(
 }
 
 // Function to store images in public/uploads directory
-async function storeFilesInDirectory(files123: any, productName: string) {
+async function storeFilesInDirectory(fileCollection: any, productName: any) {
   const uniqueId = generateUniqueId(productName); // Generate a unique id for the store
   const storeDirectory = path.join(process.cwd(), "public/uploads", uniqueId); // Create a directory path for the store
 
@@ -54,8 +54,8 @@ async function storeFilesInDirectory(files123: any, productName: string) {
     fs.mkdirSync(storeDirectory, { recursive: true });
   }
 
-  for (const [filename, files] of Object.entries(files123)) {
-    for (const file of files) {
+  for (const [filename, files] of Object.entries(fileCollection)) {
+    for (const file of files as Array<any>) {
       // Check if source file exists
       if (!fs.existsSync(file.filepath)) {
         console.error(`Source file does not exist: ${file.filepath}`);
@@ -65,14 +65,14 @@ async function storeFilesInDirectory(files123: any, productName: string) {
       if (file.mimetype !== "audio/mp4") {
         fs.renameSync(
           file.filepath,
-          path.join(storeDirectory, file.newFilename),
+          path.join(storeDirectory, file.newFilename)
         ); // Move and rename the file
       } else {
         //Just move the file and not rename it
         console.log("blob");
         fs.renameSync(
           file.filepath,
-          path.join(storeDirectory, file.newFilename),
+          path.join(storeDirectory, file.newFilename)
         ); // Move and rename the file
       }
       console.log("uniqueId: ", uniqueId);
@@ -82,7 +82,11 @@ async function storeFilesInDirectory(files123: any, productName: string) {
 }
 //TODO make sure that description is passed as a string
 // Function to store received data in the database
-async function storeDataInDatabase(fields: any, uniqueId: string) {
+async function storeDataInDatabase(fields: any, uniqueId: string | undefined) {
+  if (typeof uniqueId !== "string") {
+    console.error("Invalid unique id");
+    return;
+  }
   // Store data in the database
   fetch("http://localhost:9000/api/products", {
     method: "POST",

@@ -13,17 +13,16 @@ interface ProductsProps {
 
 const Products = (props: ProductsProps) => {
   const [showModal, setShowModal] = useState(false);
-  
-  
+
   function updatePriceStatus(status: string) {
-    if (status === "Reject") handleRejectPrice();
+    if (status === "Reject") setShowModal(true);
     console.log(`Price ${status}ed`);
-/*     fetch("/api/update-price-status", {
+    fetch("/api/update-price-status", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status: status }),
+      body: JSON.stringify({ status: status, id: props.id}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -31,16 +30,7 @@ const Products = (props: ProductsProps) => {
       })
       .catch((error) => {
         console.error("Error:", error);
-      }); */
-  }
-
-  function handleRejectPrice() {
-    console.log("Price Rejected");
-    console.log("Do you want to delete the product?");
-    setShowModal(true);
-    // Add popup to ask user if they want to delete the product
-    // If yes, delete the product
-    // If no, do nothing
+      });
   }
 
   return (
@@ -67,8 +57,12 @@ const Products = (props: ProductsProps) => {
             >
               <p className="p-2 ">Reject</p>
             </button>
-            <Modal showModal={showModal} setShowModal={setShowModal} removeProduct={() => props.removeProduct(props.id)}/>
-                        <button
+            <Modal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              removeProduct={() => props.removeProduct(props.id)}
+            />
+            <button
               className="badge badge-outline hover:bg-input-box-blue hover:text-white  border-input-box-blue hover:border-transparent bg-accept-blue w-24"
               onClick={() => updatePriceStatus("Accept")}
               type="button"

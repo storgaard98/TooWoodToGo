@@ -6,7 +6,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const { status, id } = req.body;
-    const url = `http://your-server-url/api/products/${id}/${status === "Accept" ? "acceptPrice" : "rejectPrice"}`;
+    const url = `http://localhost:9000/api/products/${id}/${status === "Accept" ? "acceptPrice" : "rejectPrice"}`;
 
     try {
       const serverResponse = await fetch(url, {
