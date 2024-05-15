@@ -96,12 +96,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
             event.preventDefault();
             saveRecording();
           }}
-          className={`btn h-auto border-0 bg-input-box-blue border-transparent rounded-3xl shadow-md hover:bg-stark-orange transition duration-200 ease-in-out ${recording ? "bg-stark-orange" : "bg-input-box-blue"} transform -translate-y-6`}
+          className={`btn h-auto border-0 bg-input-box-blue hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2  border-transparent rounded-2xl shadow-md transition duration-200 ease-in-out  transform`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="150"
-            height="150"
+            width="70"
+            height="70"
             viewBox="0 0 24 24"
             fill="#007BFF"
           >
@@ -111,7 +111,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
         </button>
       )}
       <div
-        className={`flex flex-row space-x-5 transform transition-opacity ease-in-out duration-700 ${isButtonShowed ? "opacity-100" : "opacity-0"}`}
+        className={`flex flex-row items-end justify-end transform transition-opacity ease-in-out duration-700 ${isButtonShowed ? "opacity-100" : "opacity-0"}`}
       >
         {audioChunks.length > 0 && (
           <button
@@ -120,12 +120,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
               event.stopPropagation();
               deleteRecording();
             }}
-            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-20 h-20 -translate-y-5"
+            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-12 h-12"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              height="60"
+              width="30"
+              height="30"
               viewBox="0 0 25 31"
               fill="none"
             >
@@ -143,12 +143,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSaveRecording }) => {
               event.stopPropagation();
               playRecording();
             }}
-            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-20 h-20 -translate-y-5"
+            className="flex items-center justify-center rounded-lg shadow-md hover:bg-white hover:bg-opacity-50 hover:border-white hover:border-2 transition w-12 h-12"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              height="60"
+              width="30"
+              height="30"
               viewBox="0 0 21 25"
               fill="none"
             >

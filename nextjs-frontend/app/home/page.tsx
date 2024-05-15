@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Square from "./components/square";
+import Square from "./components/Square";
 import MakeASaleButton from "./components/make-a-sale-button";
 import Profile from "./components/profile";
 import NewProductInformation from "./components/new-product-information";

@@ -24,7 +24,7 @@ interface ProductInformationData {
 
 //TODO make sure that description is passed as a string
 async function storeDataInDatabase(
-  productInformationData: ProductInformationData,
+  productInformationData: ProductInformationData
 ) {
   const form = new FormData();
   for (const [key, value] of Object.entries(productInformationData)) {
@@ -83,8 +83,11 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
       <div
         className={`absolute w-full h-16/17 flex flex-col items-center bottom-0 pt-10 transition-all ease-in-out duration-700 z-20 ${formIsExpanded}`}
       >
-        <div className="flex flex-col items-start justify-start w-11/12 h-1/4 bg-input-box-blue rounded-lg">
-          <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+        <div className="flex flex-col w-11/12 h-1/4 bg-input-box-blue rounded-lg overflow-hidden">
+          <div className="flex flex-col items-start justify-start">
+            <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+          </div>
+
           <UploadImages onSaveImages={setImages} />
         </div>
         <label htmlFor="productName" className="form-control w-11/12">
@@ -130,10 +133,8 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
             className="input rounded-lg text-lg h-full bg-input-box-blue text-white "
           />
         </label>
-        
       </div>
       <SellButton isExpanded={isExpanded} />
-     
     </form>
   );
 };
