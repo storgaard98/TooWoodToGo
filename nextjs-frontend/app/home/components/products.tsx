@@ -6,6 +6,8 @@ interface ProductsProps {
   productName: string;
   price: number;
   pathToImage: string;
+  removeProduct: (id: number) => void;
+  id: number;
 }
 
 const Products = (props: ProductsProps) => {
@@ -34,7 +36,7 @@ const Products = (props: ProductsProps) => {
             </button>
           </div>
           <div>
-            <button className="absolute top-0 right-0 m-1 w-6 h-6 flex items-center justify-center rounded-full bg-cross-red">
+            <button className="absolute top-0 right-0 m-1 w-6 h-6 flex items-center justify-center rounded-full bg-cross-red" onClick={() => props.removeProduct(props.id)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="15"
