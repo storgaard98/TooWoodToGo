@@ -6,6 +6,7 @@ import MakeASaleButton from "./components/make-a-sale-button";
 import Profile from "./components/profile";
 import NewProductInformation from "./components/new-product-information";
 import Products from "./components/products";
+import Image from "next/image";
 
 type Product = {
   id: string;
@@ -18,7 +19,7 @@ const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
-     useEffect(() => {
+  useEffect(() => {
     fetchProductsFromDatabase().then(setProducts);
   }, []);
 
@@ -57,7 +58,7 @@ const Home = () => {
   return (
     <>
       <div className="relative flex flex-col h-screen w-screen bg-white items-center overflow-y-hidden">
-        <div className="flex flex-col p-2 h-full z-10">
+        <div className="flex flex-col p-2 h-full z-10 ">
           <Profile
             pathToProfile={"/image.png"}
             profileName={"TKP BYG"}
@@ -76,7 +77,21 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <p>No products available</p>
+            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+            <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
+              <h2 className="text-center text-xl text-stark-blue text-bold m-2">You have no products for sale</h2>
+              <h2 className="text-center text-m text-stark-blue text-bold m-2">Join the club, set product for sale </h2>
+              <h2 className="text-center text-m text-stark-blue text-bold m-2">and save the environment</h2>
+
+              <Image
+                src="/stark-man.png"
+                alt="Small STARK logo"
+                className="bg-stark-orange m-2 rounded-xl "
+                width={80}
+                height={80}
+              />
+            </div>
+            </div>
           )}
         </div>
 
