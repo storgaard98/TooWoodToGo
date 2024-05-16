@@ -19,7 +19,6 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
      useEffect(() => {
-    // Replace this with your actual fetch function
     fetchProductsFromDatabase().then(setProducts);
   }, []);
 
@@ -28,7 +27,7 @@ const Home = () => {
   };
   async function fetchProductsFromDatabase() {
     // Replace this with your actual fetch function
-    const response = await fetch("/api/collect-products");
+    const response = await fetch("/api/fetch-products-handler");
     const data = await response.json();
     return data;
   }
@@ -37,6 +36,20 @@ const Home = () => {
     console.log("Product removed");
     const updatedProducts = products.filter((product) => product.id !== id);
     setProducts(updatedProducts);
+    fetch("/api/remove-product-handler/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   //TODO have an empty product so the scroll effects looks cool. Alternative use h-57% instead in the div that wraps the products
@@ -52,16 +65,19 @@ const Home = () => {
             email={"johnDoe@tkpbyg.dk"}
           />
           <h1 className="pl-2">Mail Box: </h1>
-          <p></p>
-          <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
-            {products.map((product) => (
-              <Products
-                key={product.id}
-                {...product}
-                removeProduct={removeProduct}
-              />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+              {products.map((product) => (
+                <Products
+                  key={product.id}
+                  {...product}
+                  removeProduct={removeProduct}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>No products available</p>
+          )}
         </div>
 
         <Square isExpanded={isExpanded} />

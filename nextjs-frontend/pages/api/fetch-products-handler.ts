@@ -3,7 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
 
-let cachedProducts: Product[] | null = null;
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+let productsCache: Product[] | null = null;
 //TODO remove caching on deployment
 
 type Product = {
@@ -13,36 +14,35 @@ type Product = {
   pathToImage: string;
 };
 
-export default async function handler(
+export default async function handleGetProductsRequest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
     try {
-      let products: Product[] = [];
-      if (cachedProducts) {
-        products = cachedProducts;
+      let fetchedProducts: Product[] = [];
+      if (productsCache) {
+        fetchedProducts = productsCache;
       } else {
-        const response = await fetch("http://localhost:9000/api/products", {
+        const productsResponse = await fetch(`${apiUrl}/api/products`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         });
-        if (!response.ok) {
+        if (!productsResponse.ok) {
           throw new Error("Server response was not ok");
         }
-        const data = await response.json(); // Convert the response body to a JavaScript object
-        products = data.map((item: any) => ({
+        const data = await productsResponse.json(); // Convert the response body to a JavaScript object
+        fetchedProducts = data.map((item: any) => ({
           id: item._id,
           productName: item.title || "No title",
           price: item.price || "No price",
           pathToImage: getFirstImagePath(item._id),
         }));
-        cachedProducts = products;
+        productsCache = fetchedProducts;
       }
-      console.log(products);
-      res.status(200).json(products);
+      res.status(200).json(fetchedProducts);
     } catch (error) {
       res
         .status(500)

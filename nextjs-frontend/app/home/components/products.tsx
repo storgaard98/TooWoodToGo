@@ -17,7 +17,7 @@ const Products = (props: ProductsProps) => {
   function updatePriceStatus(status: string) {
     if (status === "Reject") setShowModal(true);
     console.log(`Price ${status}ed`);
-    fetch("/api/update-price-status", {
+    fetch("/api/update-price-status-handler", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

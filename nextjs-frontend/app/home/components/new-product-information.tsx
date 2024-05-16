@@ -37,7 +37,7 @@ async function storeDataInDatabase(
     }
   }
   if (FormData) {
-    const response = await fetch("/api/form-data-sell", {
+    const response = await fetch("/api/product-upload-handler", {
       method: "POST",
       body: form,
     });

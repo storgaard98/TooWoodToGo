@@ -3,13 +3,15 @@ import formidable, { IncomingForm } from "formidable";
 import fs from "fs";
 import path from "path";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-export default async function handler(
+export default async function handleProductUploadRequest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -32,8 +34,8 @@ export default async function handler(
           return res.status(500).json({ error: "Something went wrong" });
         }
 
-        const uniqueId = storeFilesInDirectory(files, fields.productName);
-        await storeDataInDatabase(fields, await uniqueId);
+        const productUniqueId = storeProductFilesInDirectory(files);
+        await storeProductDataInDatabase(fields, await productUniqueId);
       });
     } catch (error) {
       console.error("Error in POST handler: ", error);
@@ -45,16 +47,20 @@ export default async function handler(
 }
 
 // Function to store images in public/uploads directory
-async function storeFilesInDirectory(fileCollection: any, productName: any) {
-  const uniqueId = generateUniqueId(productName); // Generate a unique id for the store
-  const storeDirectory = path.join(process.cwd(), "public/uploads", uniqueId); // Create a directory path for the store
+async function storeProductFilesInDirectory(productFiles: any) {
+  const uniqueId = generateProductUniqueId(); // Generate a unique id for the store
+  const productStoreDirectory = path.join(
+    process.cwd(),
+    "public/uploads",
+    uniqueId
+  ); // Create a directory path for the store
 
   // Check if destination directory exists, if not create it
-  if (!fs.existsSync(storeDirectory)) {
-    fs.mkdirSync(storeDirectory, { recursive: true });
+  if (!fs.existsSync(productStoreDirectory)) {
+    fs.mkdirSync(productStoreDirectory, { recursive: true });
   }
 
-  for (const [filename, files] of Object.entries(fileCollection)) {
+  for (const [filename, files] of Object.entries(productFiles)) {
     for (const file of files as Array<any>) {
       // Check if source file exists
       if (!fs.existsSync(file.filepath)) {
@@ -62,19 +68,11 @@ async function storeFilesInDirectory(fileCollection: any, productName: any) {
         continue;
       }
 
-      if (file.mimetype !== "audio/mp4") {
-        fs.renameSync(
-          file.filepath,
-          path.join(storeDirectory, file.newFilename)
-        ); // Move and rename the file
-      } else {
-        //Just move the file and not rename it
-        console.log("blob");
-        fs.renameSync(
-          file.filepath,
-          path.join(storeDirectory, file.newFilename)
-        ); // Move and rename the file
-      }
+      fs.renameSync(
+        file.filepath,
+        path.join(productStoreDirectory, file.newFilename)
+      ); // Move and rename the file
+
       console.log("uniqueId: ", uniqueId);
     }
   }
@@ -82,13 +80,16 @@ async function storeFilesInDirectory(fileCollection: any, productName: any) {
 }
 //TODO make sure that description is passed as a string
 // Function to store received data in the database
-async function storeDataInDatabase(fields: any, uniqueId: string | undefined) {
+async function storeProductDataInDatabase(
+  fields: any,
+  uniqueId: string | undefined
+) {
   if (typeof uniqueId !== "string") {
     console.error("Invalid unique id");
     return;
   }
   // Store data in the database
-  fetch("http://localhost:9000/api/products", {
+  fetch(`${apiUrl}/api/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +104,7 @@ async function storeDataInDatabase(fields: any, uniqueId: string | undefined) {
   console.log("Storing data in the database...");
 }
 
-function generateUniqueId(productName: string) {
+function generateProductUniqueId() {
   // Generate a unique id using a combination of timestamp and random number
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
