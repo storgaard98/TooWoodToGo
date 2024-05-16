@@ -43,6 +43,7 @@ const Products = (props: ProductsProps) => {
             width={100}
             height={100}
             className="h-5/6 rounded-xl object-cover"
+            quality={50}
           />
         </figure>
 
