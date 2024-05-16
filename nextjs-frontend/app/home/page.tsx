@@ -77,21 +77,7 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
-            <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
-              <h2 className="text-center text-xl text-stark-blue text-bold m-2">You have no products for sale</h2>
-              <h2 className="text-center text-m text-stark-blue text-bold m-2">Join the club, set product for sale </h2>
-              <h2 className="text-center text-m text-stark-blue text-bold m-2">and save the environment</h2>
-
-              <Image
-                src="/stark-man.png"
-                alt="Small STARK logo"
-                className="bg-stark-orange m-2 rounded-xl "
-                width={80}
-                height={80}
-              />
-            </div>
-            </div>
+            noProductsMessage
           )}
         </div>
 
@@ -104,5 +90,28 @@ const Home = () => {
     </>
   );
 };
+
+const noProductsMessage = (
+  <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+    <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
+      <h2 className="text-center text-xl text-stark-blue text-bold m-2">
+        You have no products for sale
+      </h2>
+      <h2 className="text-center text-m text-stark-blue text-bold m-2">
+        Join the club, set product for sale{" "}
+      </h2>
+      <h2 className="text-center text-m text-stark-blue text-bold m-2">
+        and save the environment
+      </h2>
+      <Image
+        src="/stark-man.png"
+        alt="Small STARK logo"
+        className="bg-stark-orange m-2 rounded-xl "
+        width={80}
+        height={80}
+      />
+    </div>
+  </div>
+);
 
 export default Home;
