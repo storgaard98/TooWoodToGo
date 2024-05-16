@@ -7,6 +7,9 @@ const sender = process.env.RESEND_SENDER_EMAIL as string;
 const receiver = process.env.RESEND_RECEIVER_EMAIL as string;
 const url = process.env.NEXT_PUBLIC_SITE_URL as string;
 
+//TODO: Fix link to offer
+//TODO Remember to add to env
+
 export default async function handlePriceStatusUpdateRequest(
   req: NextApiRequest,
   res: NextApiResponse
