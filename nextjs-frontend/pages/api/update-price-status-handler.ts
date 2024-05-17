@@ -1,27 +1,29 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export default async function handlePriceStatusUpdateRequest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { status, id } = req.body;
-    const url = `http://your-server-url/api/products/${id}/${status === "Accept" ? "acceptPrice" : "rejectPrice"}`;
+    const { status: priceStatus, id: productId } = req.body;
+    const priceUpdateUrl = `${apiUrl}/api/products/${productId}/${priceStatus === "Accept" ? "acceptPrice" : "rejectPrice"}`;
 
     try {
-      const serverResponse = await fetch(url, {
+      const priceUpdateResponse = await fetch(priceUpdateUrl, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      if (!serverResponse.ok) {
+      if (!priceUpdateResponse.ok) {
         throw new Error("Server response was not ok");
       }
 
-      const data = await serverResponse.json();
-      res.status(200).json(data);
+      const priceUpdateData = await priceUpdateResponse.json();
+      res.status(200).json(priceUpdateData);
     } catch (error) {
       res.status(500).json({ error: "Error updating price status" });
     }

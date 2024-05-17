@@ -4,49 +4,38 @@ interface ModalProps {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   removeProduct: () => void;
-  id: number;
 }
 
-const Modal: React.FC<ModalProps> = ({ showModal, setShowModal }) =>
-  showModal && (
-    <>
-      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-      <div className="modal bg-input-box-blue" role="dialog">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold text-stark-orange">Hello!</h3>
-          <p className="py-4 text-stark-blue">
-            This modal works with a hidden checkbox!
-          </p>
-          <button
-            className="btn bg-accept-blue text-white"
-            onClick={() => {
-              // Delete the product
-              console.log("Product deleted");
-              setShowModal(false);
-            }}
-          >
-            Yes
+const Modal = (props: ModalProps) =>
+  props.showModal && (
+    <div className="z50">
+      <input
+        type="checkbox"
+        id="my_modal_7"
+        className="modal-toggle"
+        checked={props.showModal}
+        readOnly
+      />
+      <div className="modal bg-stark-blue text-white" role="dialog">
+        <div className="modal-box p-4">
+          <h3 className="text-lg font-bold">Hello!</h3>
+          <p className="py-4">Do you want to delete the product!</p>
+          <button onClick={props.removeProduct} className="bg-stark-orange text-white py-2 px-4 rounded">
+            Delete Product
           </button>
-          <button
-            className="btn bg-cross-red text-white"
-            onClick={() => {
-              // Do nothing
-              console.log("Cancelled");
-              setShowModal(false);
-            }}
-          >
-            No
+          <button onClick={() => props.setShowModal(false)} className="bg-input-box-blue text-white py-2 px-4 rounded ml-2">
+            Close
           </button>
         </div>
         <label
-          className="modal-backdrop bg-upload-grey"
+          className="modal-backdrop"
           htmlFor="my_modal_7"
-          onClick={() => setShowModal(false)}
+          onClick={() => props.setShowModal(false)}
         >
           Close
         </label>
       </div>
-    </>
+    </div>
   );
 
 export default Modal;

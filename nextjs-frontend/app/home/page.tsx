@@ -1,86 +1,56 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Square from "./components/Square";
+import Square from "./components/square";
 import MakeASaleButton from "./components/make-a-sale-button";
 import Profile from "./components/profile";
 import NewProductInformation from "./components/new-product-information";
 import Products from "./components/products";
+import Image from "next/image";
 
 type Product = {
-  id: number;
+  id: string;
   productName: string;
-  price: number;
+  price: string;
   pathToImage: string;
 };
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      productName: "Randers TEGL 307",
-      pathToImage: "/Rectangle.png",
-      price: 1,
-    },
-    {
-      id: 2,
-      productName: "Product 2",
-      price: 200,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 3,
-      productName: "Product 3",
-      price: 300,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 4,
-      productName: "Product 4",
-      price: 400,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 5,
-      productName: "Product 5",
-      price: 500,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 6,
-      productName: "Product 6",
-      price: 600,
-      pathToImage: "/Rectangle.png",
-    },
-    {
-      id: 7,
-      productName: "Product 7",
-      price: 700,
-      pathToImage: "/Rectangle.png",
-    },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  /*   useEffect(() => {
-    // Replace this with your actual fetch function
+  useEffect(() => {
     fetchProductsFromDatabase().then(setProducts);
-  }, []); */
+  }, []);
 
   const toggleSquare = () => {
     setIsExpanded(!isExpanded);
   };
-  //TODO fetch products from database
   async function fetchProductsFromDatabase() {
     // Replace this with your actual fetch function
-    const response = await fetch("/api/products");
+    const response = await fetch("/api/fetch-products-handler");
     const data = await response.json();
     return data;
   }
 
-  function removeProduct(id: number) {
+  function removeProduct(id: string) {
     console.log("Product removed");
     const updatedProducts = products.filter((product) => product.id !== id);
     setProducts(updatedProducts);
+    fetch("/api/remove-product-handler/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   //TODO have an empty product so the scroll effects looks cool. Alternative use h-57% instead in the div that wraps the products
@@ -88,7 +58,7 @@ const Home = () => {
   return (
     <>
       <div className="relative flex flex-col h-screen w-screen bg-white items-center overflow-y-hidden">
-        <div className="flex flex-col p-2 h-full z-10">
+        <div className="flex flex-col p-2 h-full z-10 ">
           <Profile
             pathToProfile={"/image.png"}
             profileName={"TKP BYG"}
@@ -96,16 +66,19 @@ const Home = () => {
             email={"johnDoe@tkpbyg.dk"}
           />
           <h1 className="pl-2">Mail Box: </h1>
-          <p></p>
-          <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
-            {products.map((product) => (
-              <Products
-                key={product.id}
-                {...product}
-                removeProduct={removeProduct}
-              />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+              {products.map((product) => (
+                <Products
+                  key={product.id}
+                  {...product}
+                  removeProduct={removeProduct}
+                />
+              ))}
+            </div>
+          ) : (
+            noProductsMessage
+          )}
         </div>
 
         <Square isExpanded={isExpanded} />
@@ -117,5 +90,28 @@ const Home = () => {
     </>
   );
 };
+
+const noProductsMessage = (
+  <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+    <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
+      <h2 className="text-center text-xl text-stark-blue text-bold m-2">
+        You have no products for sale
+      </h2>
+      <h2 className="text-center text-m text-stark-blue text-bold m-2">
+        Join the club, set product for sale{" "}
+      </h2>
+      <h2 className="text-center text-m text-stark-blue text-bold m-2">
+        and save the environment
+      </h2>
+      <Image
+        src="/stark-man.png"
+        alt="Small STARK logo"
+        className="bg-stark-orange m-2 rounded-xl "
+        width={80}
+        height={80}
+      />
+    </div>
+  </div>
+);
 
 export default Home;

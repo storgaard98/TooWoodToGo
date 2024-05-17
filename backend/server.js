@@ -3,6 +3,7 @@ require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env.ME_CONFIG_MONGODB_URL;
 const dbName = process.env.ME_CONFIG_MONGODB_AUTH_DATABASE;
+let server;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -12,22 +13,6 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
 
 // Express setup
 const express = require("express");
@@ -45,26 +30,9 @@ app.use(cors({ origin: "http://localhost:3000" }));
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-process.on("SIGINT", () => {
-  console.log("Shutting down server...");
-  server.close(() => {
-    console.log("Server closed");
-    // Close MongoDB client
-    client.close().then(() => {
-      console.log("MongoDB connection closed");
-      process.exit(0);
-    });
-  });
-});
-
-// Insert functions for DB
-
 // Function to handle CRUD operations for products
 async function handleProductOperation(operation, data) {
   try {
-    await client.connect();
-    const db = client.db(dbName);
-    const productsCollection = db.collection("products");
     let result;
     switch (operation) {
       case "get":
@@ -104,19 +72,19 @@ async function handleProductOperation(operation, data) {
         throw new Error("Invalid operation");
     }
     console.log(`Successfully performed operation ${operation}`);
-    console.log(result);
     return result;
   } catch (error) {
     console.error("Error handling product operation:", error);
     throw error;
-  } finally {
-    await client.close();
   }
 }
 
 // Express route for accepting a price for a product
 app.put("/api/products/:id/acceptPrice", async (req, res) => {
+  console.log("Accepting price");
+
   const productId = req.params.id;
+  console.log("productId", productId);
   try {
     await handleProductOperation("acceptPrice", productId);
     res.json({ message: "Price accepted successfully" });
@@ -127,6 +95,7 @@ app.put("/api/products/:id/acceptPrice", async (req, res) => {
 
 // Express route for rejecting a price for a product
 app.put("/api/products/:id/rejectPrice", async (req, res) => {
+  console.log("rejectPrice");
   const productId = req.params.id;
   try {
     await handleProductOperation("rejectPrice", productId);
@@ -152,7 +121,6 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
 app.post("/api/products", async (req, res) => {
   const product = {
     _id: req.body.uniqueId,
-    uniqueId: req.body.uniqueId,
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
@@ -207,7 +175,37 @@ app.delete("/api/products/:id", async (req, res) => {
   }
 });
 
-// Start the server
-const server = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+async function startServer() {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    productsCollection = db.collection("products");
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
+    // Start the server
+    server = app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+  }
+}
+
+
+process.on("SIGINT", async () => {
+  console.log("Shutting down server...");
+  server.close(() => {
+    console.log("Server closed");
+    // Close MongoDB client
+    client.close().then(async () => {
+      console.log("MongoDB connection closed");
+      await client.close();
+      process.exit(0);
+    });
+  });
 });
+
+startServer();
