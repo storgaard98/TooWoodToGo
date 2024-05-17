@@ -7,7 +7,6 @@ const Logo = () => {
       <Image
         src="/starkLogo.png"
         alt="Image of STARK"
-        layout="responsive"
         width={300}
         height={300}
         className="object-contain"
