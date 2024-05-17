@@ -50,7 +50,7 @@ const ProductInformation = ({ productID }: propsType) => {
           </div>
           <div className="pt-20%">
             <p className="text-stark-blue text-sm font-light">Description:</p>
-            <div className="text-sm font-light">{product.description}</div>
+            <p className="text-sm font-light text-black">{product.description}</p>
           </div>
         </div>
         <div className="flex justify-end">
