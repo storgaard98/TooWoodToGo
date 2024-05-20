@@ -34,9 +34,29 @@ export default async function handleProductUploadRequest(
           return res.status(500).json({ error: "Something went wrong" });
         }
 
+        if (
+          !fields.productName ||
+          !fields.productName[0] ||
+          !fields.quantity ||
+          !fields.quantity[0]
+        ) {
+          res.status(400).json({ error: "Missing required fields" });
+          return;
+        }
+        let description = "";
+        if (fields.description && fields.description[0]) {
+          description = "No description provided";
+        }
+
         const productId = storeProductFilesInDirectory(files);
         await storeProductDataInDatabase(fields, await productId);
         res.status(200).json({ productId: await productId });
+        sendEmailToStarkStore(
+          productId,
+          fields.productName[0],
+          fields.quantity[0],
+          fields.description?.[0] || description,
+        );
       });
     } catch (error) {
       console.error("Error in POST handler: ", error);
@@ -64,9 +84,16 @@ async function storeProductFilesInDirectory(productFiles: any) {
   for (const [filename, files] of Object.entries(productFiles)) {
     for (const file of files as Array<any>) {
       // Check if source file exists
-      if (!fs.existsSync(file.filepath)) {
-        console.error(`Source file does not exist: ${file.filepath}`);
-        continue;
+      if (typeof file.filepath === "string") {
+        const normalizedPath = path.normalize(file.filepath);
+        if (path.isAbsolute(normalizedPath)) {
+          try {
+            fs.accessSync(normalizedPath, fs.constants.F_OK);
+          } catch (err) {
+            console.error(`Source file does not exist: ${normalizedPath}`);
+            continue;
+          }
+        }
       }
 
       fs.renameSync(
@@ -105,4 +132,35 @@ async function storeProductDataInDatabase(
 function generateProductId() {
   // Generate a unique id using a combination of timestamp and random number
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+async function sendEmailToStarkStore(
+  productId: Promise<string>,
+  productName: string,
+  quantity: string,
+  description: string,
+) {
+  const domain = "http://localhost:3000"; // replace with your actual domain
+  try {
+    const response = await fetch(`${domain}/api/send-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: await productId,
+        productName: productName,
+        quantity: quantity,
+        description: description,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }

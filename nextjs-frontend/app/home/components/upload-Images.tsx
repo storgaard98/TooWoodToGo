@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import Image from "next/image";
 
-interface UploadImagesProps {
-  onSaveImages: (images: UploadedImage[]) => void;
-}
-
 interface UploadedImage {
   file: File;
   name: string;
 }
 
-const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null,
-  );
+interface UploadImagesProps {
+  uploadedImages: UploadedImage[];
+  setUploadedImages: React.Dispatch<React.SetStateAction<UploadedImage[]>>;
+}
 
+const UploadImages = (props: UploadImagesProps) => {
+  //const [modalIsOpen, setModalIsOpen] = useState(false);
+  //const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
+  //const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+  // null,
+  // );
+  /* 
   const openModal = (index: number) => {
     setSelectedImageIndex(index);
     setModalIsOpen(true);
@@ -26,7 +27,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedImageIndex(null);
-  };
+  }; */
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -37,21 +38,19 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
         name: file.name,
       }));
 
-      setUploadedImages([...uploadedImages, ...newUploadedImages]);
-      onSaveImages([...uploadedImages, ...newUploadedImages]);
+      props.setUploadedImages([...props.uploadedImages, ...newUploadedImages]);
     }
   };
 
   const removeImage = (index: number) => {
-    const updatedImages = [...uploadedImages];
+    const updatedImages = [...props.uploadedImages];
     updatedImages.splice(index, 1);
-    setUploadedImages(updatedImages);
-    onSaveImages(updatedImages);
+    props.setUploadedImages(updatedImages);
   };
 
   return (
     <div>
-      {uploadedImages.length == 0 ? (
+      {props.uploadedImages.length == 0 ? (
         <div className="flex flex-col justify-center items-center w-full h-full">
           <label
             htmlFor="image_uploads"
@@ -92,7 +91,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ onSaveImages }) => {
       )}
       <div className="carousel gap-3 mt-[-20px] ">
         {/* Display selected file names */}
-        {uploadedImages.map((image, index) => (
+        {props.uploadedImages.map((image, index) => (
           <div key={index} className="relative carousel-item rounded-sm ">
             {/*<div className="">{image.name}</div>*/}
             <Image

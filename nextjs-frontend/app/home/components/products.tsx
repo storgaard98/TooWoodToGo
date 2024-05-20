@@ -11,16 +11,17 @@ interface ProductsProps {
   id: string;
   description: string;
   quantity: string;
+  acceptedPrice: boolean;
 }
 
 const Products = (props: ProductsProps) => {
   const [showModal, setShowModal] = useState(false);
-  const [isAccepted, setIsAccepted] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(props.acceptedPrice);
 
   function updatePriceStatus(status: string) {
     if (status === "Reject") setShowModal(true);
     if (status === "Accept") setIsAccepted(true);
-    console.log(`Price ${status}ed`);
+
     fetch("/api/update-price-status-handler", {
       method: "POST",
       headers: {
@@ -138,6 +139,7 @@ Products.propTypes = {
   quantity: PropTypes.string,
   price: PropTypes.string,
   pathToImage: PropTypes.string.isRequired,
+  acceptedPrice: PropTypes.bool.isRequired,
 };
 
 export default Products;

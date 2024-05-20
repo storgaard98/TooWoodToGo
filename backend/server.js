@@ -48,7 +48,7 @@ async function handleProductOperation(operation, data) {
         result = await productsCollection.deleteOne({ _id: data });
         break;
       case "deleteById":
-        result = await productsCollection.deleteOne({ id: data });
+        result = await productsCollection.deleteOne({ _id: data });
         break;
       case "acceptPrice":
         result = await productsCollection.updateOne(
@@ -127,7 +127,7 @@ app.post("/api/products", async (req, res) => {
     description: req.body.description,
     quantity: req.body.quantity,
     acceptedPrice: false,
-    date: new Date(),
+    date: new Date().toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }),
   };
   try {
     const result = await handleProductOperation("insert", product);

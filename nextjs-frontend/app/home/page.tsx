@@ -15,6 +15,7 @@ type Product = {
   quantity: string;
   pathToImage: string;
   price: string;
+  acceptedPrice: boolean;
 };
 
 const Home = () => {

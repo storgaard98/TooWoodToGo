@@ -70,7 +70,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
+  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
       description,
       quantity,
       audioBlob,
-      images,
+      images: uploadedImages,
       price: "",
       acceptedPrice: false,
     };
@@ -88,6 +88,15 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
     setIsExpanded(false);
     console.log("Submit ", productInformationData);
     storeDataInDatabase(productInformationData);
+    const clearProductInformationData = () => {
+      setProductName("");
+      setDescription("");
+      setQuantity("");
+      setAudioBlob(null);
+      setUploadedImages([]);
+    };
+
+    clearProductInformationData();
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"
@@ -102,7 +111,10 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
             <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
           </div>
 
-          <UploadImages onSaveImages={setImages} />
+          <UploadImages
+            setUploadedImages={setUploadedImages}
+            uploadedImages={uploadedImages}
+          />
         </div>
         <label htmlFor="productName" className="form-control w-11/12">
           <div className="label">
