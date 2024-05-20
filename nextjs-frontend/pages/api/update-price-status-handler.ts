@@ -4,12 +4,11 @@ const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default async function handlePriceStatusUpdateRequest(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "POST") {
     const { status: priceStatus, id: productId } = req.body;
     const priceUpdateUrl = `${apiUrl}/api/products/${productId}/${priceStatus === "Accept" ? "acceptPrice" : "rejectPrice"}`;
-
     try {
       const priceUpdateResponse = await fetch(priceUpdateUrl, {
         method: "PUT",

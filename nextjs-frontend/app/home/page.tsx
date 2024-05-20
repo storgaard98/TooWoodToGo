@@ -11,8 +11,10 @@ import Image from "next/image";
 type Product = {
   id: string;
   productName: string;
-  price: string;
+  description: string;
+  quantity: string;
   pathToImage: string;
+  price: string;
 };
 
 const Home = () => {
@@ -21,28 +23,41 @@ const Home = () => {
 
   useEffect(() => {
     fetchProductsFromDatabase().then(setProducts);
-  }, []);
+  }, [isExpanded]);
 
   const toggleSquare = () => {
     setIsExpanded(!isExpanded);
   };
+
   async function fetchProductsFromDatabase() {
-    // Replace this with your actual fetch function
-    const response = await fetch("/api/fetch-products-handler");
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch("/api/fetch-products-handler");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products from the database");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      return [];
+    }
+  }
+  function addProduct(product: Product) {
+    setProducts([...products, product]);
   }
 
-  function removeProduct(id: string) {
-    console.log("Product removed");
-    const updatedProducts = products.filter((product) => product.id !== id);
+  function removeProduct(productId: string) {
+    console.log("Product removed with productId: ", productId);
+    const updatedProducts = products.filter(
+      (product) => product.id !== productId,
+    );
     setProducts(updatedProducts);
     fetch("/api/remove-product-handler/", {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ productId: productId }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -53,12 +68,14 @@ const Home = () => {
       });
   }
 
-  //TODO have an empty product so the scroll effects looks cool. Alternative use h-57% instead in the div that wraps the products
   //Removed         {!isExpanded && ( )} from the div that wraps the products - the p-tag
   return (
     <>
-      <div className="relative flex flex-col h-screen w-screen bg-white items-center overflow-y-hidden">
-        <div className="flex flex-col p-2 h-full z-10 ">
+      <div
+        className="relative flex flex-col h-screen w-screen bg-white items-center overflow-y-hidden"
+        style={{ overscrollBehavior: "none" }}
+      >
+        <div className="flex flex-col p-2 h-full z-10">
           <Profile
             pathToProfile={"/image.png"}
             profileName={"TKP BYG"}
@@ -67,7 +84,7 @@ const Home = () => {
           />
           <h1 className="pl-2">Mail Box: </h1>
           {products.length > 0 ? (
-            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto h-57% rounded-3xl ">
               {products.map((product) => (
                 <Products
                   key={product.id}
@@ -82,11 +99,14 @@ const Home = () => {
         </div>
 
         <Square isExpanded={isExpanded} />
-        <div className="absolute flex flex-col bottom-10 justify-center items-center">
+        <div className="absolute flex flex-col bottom-10 justify-center items-center overflow-y-hidden">
           <MakeASaleButton onButtonClick={toggleSquare} />
         </div>
       </div>
-      <NewProductInformation isExpanded={isExpanded} />
+      <NewProductInformation
+        isExpanded={isExpanded}
+        setIsExpanded={setIsExpanded}
+      />
     </>
   );
 };

@@ -39,32 +39,32 @@ async function handleProductOperation(operation, data) {
         result = await productsCollection.find({}).toArray();
         break;
       case "getById":
-        result = await productsCollection.findOne({ _id: ObjectId(data) });
+        result = await productsCollection.findOne({ _id: data });
         break;
       case "insert":
         result = await productsCollection.insertOne(data);
         break;
       case "delete":
-        result = await productsCollection.deleteOne({ _id: ObjectId(data) });
+        result = await productsCollection.deleteOne({ _id: data });
         break;
       case "deleteById":
         result = await productsCollection.deleteOne({ id: data });
         break;
       case "acceptPrice":
         result = await productsCollection.updateOne(
-          { _id: ObjectId(data) },
+          { _id: data },
           { $set: { acceptedPrice: true } }
         );
         break;
       case "rejectPrice":
         result = await productsCollection.updateOne(
-          { _id: ObjectId(data) },
+          { _id: data },
           { $set: { acceptedPrice: false } }
         );
         break;
       case "setPrice":
         result = await productsCollection.updateOne(
-          { _id: ObjectId(data.productId) },
+          { _id: data.productId },
           { $set: { price: data.price } }
         );
         break;
@@ -81,10 +81,8 @@ async function handleProductOperation(operation, data) {
 
 // Express route for accepting a price for a product
 app.put("/api/products/:id/acceptPrice", async (req, res) => {
-  console.log("Accepting price");
-
   const productId = req.params.id;
-  console.log("productId", productId);
+  console.log("Accepting price for product", productId)
   try {
     await handleProductOperation("acceptPrice", productId);
     res.json({ message: "Price accepted successfully" });
@@ -95,8 +93,9 @@ app.put("/api/products/:id/acceptPrice", async (req, res) => {
 
 // Express route for rejecting a price for a product
 app.put("/api/products/:id/rejectPrice", async (req, res) => {
-  console.log("rejectPrice");
   const productId = req.params.id;
+  console.log("Reject price for product", productId)
+
   try {
     await handleProductOperation("rejectPrice", productId);
     res.json({ message: "Price rejected successfully" });
@@ -117,14 +116,18 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
   }
 });
 
+
+
 // Express route for inserting a product into the database
 app.post("/api/products", async (req, res) => {
   const product = {
-    _id: req.body.uniqueId,
-    title: req.body.title,
+    _id: req.body.productId,
+    productName: req.body.productName,
     price: req.body.price,
     description: req.body.description,
+    quantity: req.body.quantity,
     acceptedPrice: false,
+    date: new Date(),
   };
   try {
     const result = await handleProductOperation("insert", product);

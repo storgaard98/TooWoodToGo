@@ -18,7 +18,6 @@ const config: Config = {
         "cross-red": "#F00",
         "accept-blue": "#0CD1FD",
         "product-box-blue": "#D9D9D9",
-
       },
       borderRadius: {
         "3px": "3px",
@@ -31,8 +30,8 @@ const config: Config = {
         "600px": "600px",
         "57%": "57%",
       },
-      width:{
-        "4%":"100%",
+      width: {
+        "4%": "100%",
       },
 
       padding: {
@@ -45,12 +44,11 @@ const config: Config = {
         "70px": "70px",
         "5%": "5%",
         "20%": "20%",
-        "custom": "0.25rem",
+        custom: "0.25rem",
       },
       rotate: {
         "180deg": "180deg",
       },
-
 
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

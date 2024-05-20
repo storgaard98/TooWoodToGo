@@ -17,23 +17,30 @@ interface UploadedImage {
 interface ProductInformationData {
   productName: string;
   description: string;
-  quantity: number;
+  quantity: string;
+  price: string;
+  acceptedPrice: boolean;
   audioBlob: Blob | null;
   images: UploadedImage[]; // Corrected type definition
 }
 
-//TODO make sure that description is passed as a string
 async function storeDataInDatabase(
-  productInformationData: ProductInformationData
+  productInformationData: ProductInformationData,
 ) {
   const form = new FormData();
   for (const [key, value] of Object.entries(productInformationData)) {
-    if (key !== "images") {
-      form.append(key, value);
-    } else {
-      for (const image of value) {
-        form.append(image.name, image.file);
-      }
+    switch (key) {
+      case "images":
+        for (const image of value) {
+          form.append(image.name, image.file);
+        }
+        break;
+      case "audioBlob":
+        const audioFile = new File([value], "audio.mp4", { type: "audio/mp4" });
+        form.append("audio", audioFile);
+        break;
+      default:
+        form.append(key, value);
     }
   }
   if (FormData) {
@@ -41,23 +48,27 @@ async function storeDataInDatabase(
       method: "POST",
       body: form,
     });
-
     if (response.ok) {
       console.log("Files uploaded successfully");
       // Fetch uploaded image URLs after successful upload
       const data = await response.json();
+      console.log("Product ID:", data.productId);
+      return data.productId;
     } else {
       console.error("Failed to upload files");
     }
   }
 }
 
-type propsType = { isExpanded: boolean };
+type propsType = {
+  isExpanded: boolean;
+  setIsExpanded: (isExpanded: boolean) => void;
+};
 
-const NewProductInformation = ({ isExpanded }: propsType) => {
+const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [images, setImages] = useState<UploadedImage[]>([]); // Corrected type definition
 
@@ -70,8 +81,11 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
       quantity,
       audioBlob,
       images,
+      price: "",
+      acceptedPrice: false,
     };
 
+    setIsExpanded(false);
     console.log("Submit ", productInformationData);
     storeDataInDatabase(productInformationData);
   };
@@ -126,11 +140,12 @@ const NewProductInformation = ({ isExpanded }: propsType) => {
             <span className="label-text text-white text-sm ">Quantity</span>
           </div>
           <input
-            type="number"
+            type="text"
             id="quantity"
             value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            className="input rounded-lg text-lg h-full bg-input-box-blue text-white "
+            onChange={(e) => setQuantity(e.target.value)}
+            placeholder="E.g 2 pallets"
+            className="input rounded-lg text-m bg-input-box-blue text-white "
           />
         </label>
       </div>

@@ -13,7 +13,7 @@ export const config = {
 
 export default async function handleProductUploadRequest(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "POST") {
     const form = new IncomingForm({
@@ -34,8 +34,9 @@ export default async function handleProductUploadRequest(
           return res.status(500).json({ error: "Something went wrong" });
         }
 
-        const productUniqueId = storeProductFilesInDirectory(files);
-        await storeProductDataInDatabase(fields, await productUniqueId);
+        const productId = storeProductFilesInDirectory(files);
+        await storeProductDataInDatabase(fields, await productId);
+        res.status(200).json({ productId: await productId });
       });
     } catch (error) {
       console.error("Error in POST handler: ", error);
@@ -48,11 +49,11 @@ export default async function handleProductUploadRequest(
 
 // Function to store images in public/uploads directory
 async function storeProductFilesInDirectory(productFiles: any) {
-  const uniqueId = generateProductUniqueId(); // Generate a unique id for the store
+  const productId = generateProductId(); // Generate a unique id for the store
   const productStoreDirectory = path.join(
     process.cwd(),
     "public/uploads",
-    uniqueId
+    productId,
   ); // Create a directory path for the store
 
   // Check if destination directory exists, if not create it
@@ -70,21 +71,18 @@ async function storeProductFilesInDirectory(productFiles: any) {
 
       fs.renameSync(
         file.filepath,
-        path.join(productStoreDirectory, file.newFilename)
+        path.join(productStoreDirectory, file.newFilename),
       ); // Move and rename the file
-
-      console.log("uniqueId: ", uniqueId);
     }
   }
-  return uniqueId;
+  return productId;
 }
-//TODO make sure that description is passed as a string
 // Function to store received data in the database
 async function storeProductDataInDatabase(
   fields: any,
-  uniqueId: string | undefined
+  productId: string | undefined,
 ) {
-  if (typeof uniqueId !== "string") {
+  if (typeof productId !== "string") {
     console.error("Invalid unique id");
     return;
   }
@@ -95,16 +93,16 @@ async function storeProductDataInDatabase(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      productName: fields.productName,
-      description: fields.description,
-      price: fields.price,
-      uniqueId,
+      productName: fields.productName[0] as string,
+      description: fields.description[0] as string,
+      quantity: fields.quantity[0] as string,
+      productId,
     }),
   });
-  console.log("Storing data in the database...");
+  console.log("Storing data for ", productId, "in the database...");
 }
 
-function generateProductUniqueId() {
+function generateProductId() {
   // Generate a unique id using a combination of timestamp and random number
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }

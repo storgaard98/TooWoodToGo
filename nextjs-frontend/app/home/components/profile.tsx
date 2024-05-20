@@ -16,7 +16,7 @@ const profile = (props: ProfileProps) => {
         <Image
           src={props.pathToProfile}
           alt={`Profile Picture of ${props.profileName}`}
-          className="max-w-sm shadow-xl mr-4"
+          className="max-w-md shadow-xl mr-4 bg-black rounded-lg"
           width={150}
           height={150}
         />

@@ -22,7 +22,7 @@ const Buttons = ({
         type="button"
         onClick={onAcceptClick}
       >
-        <p className="text-white font-light">Accept</p>
+        <p className="text-white font-light">Accept and send</p>
       </button>
     </div>
   );
