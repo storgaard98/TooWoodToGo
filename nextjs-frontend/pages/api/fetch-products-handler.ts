@@ -19,6 +19,8 @@ export default async function handleGetProductsRequest(
   res: NextApiResponse,
 ) {
   if (req.method === "GET") {
+    console.log("GET request received");
+    console.log("apiUrl", apiUrl);
     try {
       let fetchedProducts: Product[] = [];
       /*  if (productsCache) {

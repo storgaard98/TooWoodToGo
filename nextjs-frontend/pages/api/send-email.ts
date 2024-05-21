@@ -4,21 +4,17 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const sender = process.env.RESEND_SENDER_EMAIL as string;
 const receiver = process.env.RESEND_RECEIVER_EMAIL as string;
-const url = process.env.NEXT_PUBLIC_SITE_URL as string;
 
-//TODO: Fix link to offer
-//TODO Remember to add to env
-
+let url = "";
+if (process.env.NEXT_PUBLIC_VERCEL_ENV) {
+  url = process.env.NEXT_PUBLIC_VERCEL_URL as string;
+} else {
+  url = process.env.NEXT_PUBLIC_SITE_URL as string;
+}
 export default async function handlePriceStatusUpdateRequest(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  console.log("");
-  console.log("");
-  console.log("env");
-  console.log("sender: ", sender, "receiver: ", receiver, "url:", url);
-  console.log("");
-  console.log("");
   if (req.method === "POST") {
     if (req.method === "POST") {
       const { productId, productName, quantity, description } = req.body;
