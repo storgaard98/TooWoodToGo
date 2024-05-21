@@ -13,21 +13,6 @@ interface UploadImagesProps {
 }
 
 const UploadImages = (props: UploadImagesProps) => {
-  //const [modalIsOpen, setModalIsOpen] = useState(false);
-  //const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
-  //const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-  // null,
-  // );
-  /* 
-  const openModal = (index: number) => {
-    setSelectedImageIndex(index);
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setSelectedImageIndex(null);
-  }; */
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

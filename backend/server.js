@@ -27,6 +27,7 @@ app.use(morgan("dev"));
 // Middleware to enable CORS
 const cors = require("cors");
 app.use(cors());
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
