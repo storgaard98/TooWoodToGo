@@ -108,7 +108,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
       >
         <div className="flex flex-col w-11/12 h-1/4 bg-input-box-blue rounded-lg overflow-hidden">
           <div className="flex flex-col items-start justify-start">
-            <p className="text-upload-grey p-3 text-sm"> Upload photos</p>
+            <p className="text-upload-grey p-3 text-sm"> Tilføj billeder</p>
           </div>
 
           <UploadImages
@@ -118,7 +118,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
         </div>
         <label htmlFor="productName" className="form-control w-11/12">
           <div className="label">
-            <span className="label-text text-white text-sm">Product Name</span>
+            <span className="label-text text-white text-sm">Produkt navn</span>
           </div>
           <input
             type="text"
@@ -134,7 +134,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
         >
           <div className="label">
             <span className="label-text text-white text-sm">
-              Make a description
+              Tilføj en beskrivelse af produktet
             </span>
           </div>
           <textarea
@@ -149,14 +149,14 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
         </label>
         <label htmlFor="quantity" className="form-control w-11/12">
           <div className="label">
-            <span className="label-text text-white text-sm ">Quantity</span>
+            <span className="label-text text-white text-sm ">Antal</span>
           </div>
           <input
             type="text"
             id="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            placeholder="E.g 2 pallets"
+            placeholder="Eksempel: 2 paller"
             className="input rounded-lg text-m bg-input-box-blue text-white "
           />
         </label>

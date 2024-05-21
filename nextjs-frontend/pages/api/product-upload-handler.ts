@@ -45,7 +45,7 @@ export default async function handleProductUploadRequest(
         }
         let description = "";
         if (fields.description && fields.description[0]) {
-          description = "No description provided";
+          description = "Ingen beskrivelse angivet";
         }
 
         const productId = storeProductFilesInDirectory(files);

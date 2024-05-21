@@ -83,7 +83,7 @@ const Home = () => {
             phone={"12345678"}
             email={"johnDoe@tkpbyg.dk"}
           />
-          <h1 className="pl-2">Mail Box: </h1>
+          <h1 className="pl-2"> Din produkter: </h1>
           {products.length > 0 ? (
             <div className="flex flex-col justify-start w-full h-full% overflow-y-auto h-57% rounded-3xl ">
               {products.map((product) => (
@@ -116,13 +116,13 @@ const noProductsMessage = (
   <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
     <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
       <h2 className="text-center text-xl text-stark-blue text-bold m-2">
-        You have no products for sale
+        Du har ingen produkter til salg
       </h2>
       <h2 className="text-center text-m text-stark-blue text-bold m-2">
-        Join the club, set product for sale{" "}
+        Start salget af dine overskydende produkter
       </h2>
       <h2 className="text-center text-m text-stark-blue text-bold m-2">
-        and save the environment
+        og red miljøet
       </h2>
       <Image
         src="/stark-man.png"

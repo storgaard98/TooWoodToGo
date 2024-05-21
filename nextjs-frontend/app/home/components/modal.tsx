@@ -19,18 +19,20 @@ const Modal = (props: ModalProps) =>
       <div className="modal bg-stark-blue text-black" role="dialog">
         <div className="modal-box p-4">
           <h3 className="text-lg font-bold"></h3>
-          <p className="py-4">Do you want to reject the offer?</p>
+          <p className="py-4">Ønsker du at fjerne produktet?</p>
           <button
+            type="button"
             onClick={props.removeProduct}
             className="bg-stark-orange text-white py-2 px-4 rounded"
           >
-            Reject Offer
+            Fjern produkt
           </button>
           <button
             onClick={() => props.setShowModal(false)}
             className="bg-input-box-blue text-white py-2 px-4 rounded ml-2"
+            type="button"
           >
-            Close
+            Luk
           </button>
         </div>
         <label
@@ -38,7 +40,7 @@ const Modal = (props: ModalProps) =>
           htmlFor="my_modal_7"
           onClick={() => props.setShowModal(false)}
         >
-          Close
+          Luk
         </label>
       </div>
     </div>

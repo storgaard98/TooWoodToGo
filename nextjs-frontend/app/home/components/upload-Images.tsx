@@ -56,7 +56,7 @@ const UploadImages = (props: UploadImagesProps) => {
             htmlFor="image_uploads"
             className="flex flex-col items-center justify-center w-1/2 h-2/3 rounded-md shadow-md border-white border cursor-pointer hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-20"
           >
-            <p className="text-white text-sm p-3">+ upload photos</p>
+            <p className="text-white text-sm p-3">+ tilføj billeder</p>
           </label>
           <input
             type="file"
@@ -75,7 +75,7 @@ const UploadImages = (props: UploadImagesProps) => {
               className="flex justify-center items-center w-1/2 rounded-lg shadow-md border-white border hover:bg-white hover:bg-opacity-20 transition-colors duration-300 ease-in-out z-20"
             >
               <p className="flex text-white text-sm p-1">
-                + upload more photos
+                + tilføj flere billeder
               </p>
             </label>
           </div>

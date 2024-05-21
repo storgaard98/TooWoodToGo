@@ -23,10 +23,10 @@ const profile = (props: ProfileProps) => {
         <div>
           <h3 className="font-bold text-input-box-blue">{props.profileName}</h3>
           <div className="flex flex-col">
-            <p className="py-1 text-slate-400">Phone : {props.phone}</p>
+            <p className="py-1 text-slate-400">Telefonnummer : {props.phone}</p>
             <p className="py-1 text-slate-400">Email : {props.email}</p>
             <button className="bg-transparent hover:bg-stark-blue text-stark-blue font-semibold hover:text-white border border-stark-blue hover:border-transparent rounded">
-              Edit profile
+              Rediger profil
             </button>
           </div>
         </div>

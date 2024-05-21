@@ -15,14 +15,14 @@ const Buttons = ({
         type="button"
         onClick={onRejectClick}
       >
-        <p className="text-white font-light">Reject</p>
+        <p className="text-white font-light">Afvis</p>
       </button>
       <button
         className="border border-input-box-blue hover:bg-input-box-blue hover:text-white hover:border-transparent bg-accept-blue rounded-full w-2/3 active:scale-90 transform transition"
         type="button"
         onClick={onAcceptClick}
       >
-        <p className="text-white font-light">Accept and send</p>
+        <p className="text-white font-light">Acceptere og send</p>
       </button>
     </div>
   );

@@ -55,14 +55,14 @@ async function fetchProductById(productId: string): Promise<Product | null> {
   if (productData) {
     return {
       id: productData._id,
-      productName: productData.productName || "No productName",
+      productName: productData.productName || "Intet produkt navn",
       price: productData.price || "No price",
       pathToImages: getAllImagePaths(productData._id),
       pathToAudio: getProductAudio(productData._id) || "",
-      date: productData.date || "No date",
-      description: productData.description || "No description",
+      date: productData.date || "Ingen dato angivet",
+      description: productData.description || "Ingen beskrivelse",
       acceptedPrice: productData.acceptedPrice || false,
-      quantity: productData.quantity || "No quantity",
+      quantity: productData.quantity || "Antal ikke angivet",
     };
   } else {
     return null;

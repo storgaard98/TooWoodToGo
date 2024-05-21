@@ -22,18 +22,20 @@ const Modal = (props: ModalProps) =>
       >
         <div className="modal-box p-4">
           <h3 className="text-lg font-bold"></h3>
-          <p className="py-4">Are you sure you want to reject this product?</p>
+          <p className="py-4">
+            Er du sikker på, at du vil afvise dette produkt?
+          </p>
           <button
             onClick={props.rejectProduct}
             className="bg-stark-orange text-white py-2 px-4 rounded"
           >
-            Reject Products
+            Afvis produkt
           </button>
           <button
             onClick={() => props.setShowModal(false)}
             className="bg-input-box-blue text-white py-2 px-4 rounded ml-2"
           >
-            Close
+            Luk
           </button>
         </div>
         <label
@@ -41,7 +43,7 @@ const Modal = (props: ModalProps) =>
           htmlFor="my_modal_7"
           onClick={() => props.setShowModal(false)}
         >
-          Close
+          Luk
         </label>
       </div>
     </div>

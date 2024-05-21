@@ -12,7 +12,7 @@ const loginPage = () => {
       <h1 className="text-white text-8xl font-bold m-4">TooWoodToGo</h1>
       <LoginFormular />
       <Link href="./SignUp" className="label-text text-white pt-1 text-xl">
-        Aren&rsquo;t you signed up yet? <b>Sign up</b>
+        Har du ikke en bruger <b>Opret en bruger</b>
       </Link>
       <SignInButton />
       <Logo />

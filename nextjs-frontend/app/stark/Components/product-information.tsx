@@ -55,9 +55,8 @@ const ProductInformation = ({ productID }: propsType) => {
   }
 
   const info = {
-    date: "16. maj 2024",
-    company: "Bobs byggefirma",
-    email: "byggemand@bob.com",
+    company: "TKP BYG A/S",
+    email: "ByggeMandBob@tkpbyg.dk",
     phone: "12345678",
   };
 
@@ -127,13 +126,13 @@ const ProductInformation = ({ productID }: propsType) => {
                 </div>
                 <div>
                   <p className="text-stark-blue text-sm font-light">
-                    Uploaded {product.date} by {info.company}
+                    Oprettet {product.date} af {info.company}
                   </p>
                 </div>
                 <div>
                   <p className="text-stark-blue text-sm font-light">
-                    Email: {info.email} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone:{" "}
-                    {info.phone}
+                    Email: {info.email} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Telefonnummer: {info.phone}
                   </p>
                 </div>
                 <div className="text-stark-blue text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl pt-5% font-light">
@@ -143,7 +142,7 @@ const ProductInformation = ({ productID }: propsType) => {
                   <div className="flex items-center">
                     <div className="flex-1">
                       <p className="text-stark-blue text-sm font-light">
-                        Description:
+                        Beskrivelse af produktet:
                       </p>
                       <p className="text-sm font-light text-black">
                         {product.description}
@@ -176,7 +175,7 @@ const ProductInformation = ({ productID }: propsType) => {
                 <div>
                   <label htmlFor="price" className="form-control pt-10">
                     <span className="label-text text-lg text-stark-blue font-light pb-1">
-                      Enter a price
+                      Afgiv en pris
                     </span>
                     <input
                       type="number"
@@ -203,7 +202,7 @@ const ProductInformation = ({ productID }: propsType) => {
           </>
         ) : (
           <div className="flex justify-center items-center w-full h-full">
-            <p className="text-stark-blue text-2xl font-light">Loading...</p>
+            <p className="text-stark-blue text-2xl font-light">Indlæser...</p>
           </div>
         )}
       </div>

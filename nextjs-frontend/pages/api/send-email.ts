@@ -27,19 +27,19 @@ export default async function handlePriceStatusUpdateRequest(
       resend.emails.send({
         from: sender,
         to: receiver,
-        subject: `New offer on ${productName} from TKP BYG A/S`,
+        subject: `Nyt produkt tilbud:  ${productName} fra TKP BYG A/S`,
         html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-        <h1 style="color: #444;">Offer received from TKP BYG A/S</h1>
-        <h1 style="color: #555;">${productName}</h1>
-        <p style="margin-bottom: 10px;">${description}</p>
-        <p style="margin-bottom: 10px;">Quantity: ${quantity}</p>
-        <p style="margin-bottom: 10px;">Phone: 12345678 </p>
-        <p style="margin-bottom: 20px;">Email: BobTheBuilder@tkpbyg.dk </p>
-        <a href="${url}/${productId}" style="background-color: #4CAF50; color: white; text-decoration: none; padding: 10px 20px; margin-bottom: 20px; display: inline-block;">View offer</a>
-        <p style="margin-bottom: 10px;">Best regards,</p>
-        <p style="margin-bottom: 0;">TooWoodToGo</p>
-</div>
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #01346B;">
+        <h1 style="color: #F5821E;">Tilbud modtaget fra TKP BYG A/S</h1>
+        <h1 style="color: #001E3E;">${productName}</h1>
+        <p style="margin-bottom: 10px; color: #657383;">${description}</p>
+        <p style="margin-bottom: 10px; color: #657383;">Antal: ${quantity}</p>
+        <p style="margin-bottom: 10px; color: #657383;">Telefonnummer: 12345678 </p>
+        <p style="margin-bottom: 20px; color: #657383;">Email: ByggeMandBob@tkpbyg.dk </p>
+        <a href="${url}/${productId}" style="background-color: #0CD1FD; color: white; text-decoration: none; padding: 10px 20px; margin-bottom: 20px; display: inline-block;">Vis tilbud</a>
+        <p style="margin-bottom: 10px; color: #657383;">Med venlig hilsen,</p>
+        <p style="margin-bottom: 0; color: #657383;">TooWoodToGo</p>
+    </div>
 `,
       });
 

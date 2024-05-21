@@ -5,7 +5,9 @@ const LoginFormular = () => {
     <>
       <label className="form-control w-full max-w-xl pt-11">
         <div className="label">
-          <span className="label-text text-white text-4xl">Company Mail</span>
+          <span className="label-text text-white text-4xl">
+            Virksomhedens Mail
+          </span>
         </div>
         <div className="relative w-full max-w-xl">
           <input
@@ -26,7 +28,7 @@ const LoginFormular = () => {
       </label>
       <label className="form-control w-full max-w-xl pt-11">
         <div className="label">
-          <span className="label-text text-white text-4xl">Password</span>
+          <span className="label-text text-white text-4xl">Kodeord</span>
         </div>
         <div className="relative w-full max-w-xl">
           <input

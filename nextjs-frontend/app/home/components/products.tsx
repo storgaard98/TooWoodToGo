@@ -60,7 +60,7 @@ const Products = (props: ProductsProps) => {
           <div className="absolute bottom-1 right-1 flex flex-row gap-3">
             {props.price === "" ? (
               <>
-                <p>Awaiting price from STARK</p>
+                <p>Afventer pris fra STARK</p>
               </>
             ) : (
               <>
@@ -76,7 +76,7 @@ const Products = (props: ProductsProps) => {
                   {isAccepted ? (
                     <p className="p-2"></p>
                   ) : (
-                    <p className="p-2">Reject</p>
+                    <p className="p-2">Afvis</p>
                   )}
                 </button>
                 <Modal
@@ -90,9 +90,9 @@ const Products = (props: ProductsProps) => {
                   type="button"
                 >
                   {isAccepted ? (
-                    <p className="p-1">Accepted</p>
+                    <p className="p-1">Accepteret</p>
                   ) : (
-                    <p className="p-1">Accept</p>
+                    <p className="p-1">Acceptere</p>
                   )}
                 </button>
               </>
