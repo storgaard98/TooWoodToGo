@@ -26,7 +26,7 @@ const morgan = require("morgan");
 app.use(morgan("dev"));
 // Middleware to enable CORS
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -82,7 +82,7 @@ async function handleProductOperation(operation, data) {
 // Express route for accepting a price for a product
 app.put("/api/products/:id/acceptPrice", async (req, res) => {
   const productId = req.params.id;
-  console.log("Accepting price for product", productId)
+  console.log("Accepting price for product", productId);
   try {
     await handleProductOperation("acceptPrice", productId);
     res.json({ message: "Price accepted successfully" });
@@ -94,7 +94,7 @@ app.put("/api/products/:id/acceptPrice", async (req, res) => {
 // Express route for rejecting a price for a product
 app.put("/api/products/:id/rejectPrice", async (req, res) => {
   const productId = req.params.id;
-  console.log("Reject price for product", productId)
+  console.log("Reject price for product", productId);
 
   try {
     await handleProductOperation("rejectPrice", productId);
@@ -116,8 +116,6 @@ app.put("/api/products/:id/setPrice", async (req, res) => {
   }
 });
 
-
-
 // Express route for inserting a product into the database
 app.post("/api/products", async (req, res) => {
   const product = {
@@ -127,7 +125,11 @@ app.post("/api/products", async (req, res) => {
     description: req.body.description,
     quantity: req.body.quantity,
     acceptedPrice: false,
-    date: new Date().toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }),
+    date: new Date().toLocaleDateString("da-DK", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
   };
   try {
     const result = await handleProductOperation("insert", product);
@@ -135,6 +137,7 @@ app.post("/api/products", async (req, res) => {
       message: "Product inserted successfully",
       productId: result.insertedId,
     });
+    console.log("Product inserted successfully with ID:", result.insertedId);
   } catch (error) {
     res
       .status(500)
@@ -149,6 +152,7 @@ app.get("/api/products/:id", async (req, res) => {
     const result = await handleProductOperation("getById", productId);
     if (result) {
       res.json(result);
+      console.log("Product found with ID:", productId);
     } else {
       res.status(404).json({ error: "Product not found" });
     }
@@ -161,7 +165,12 @@ app.get("/api/products/:id", async (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const result = await handleProductOperation("get");
-    res.json(result);
+    if (!result) {
+      res.status(404).json({ error: "No products found" });
+    } else {
+      res.json(result);
+      console.log("All products retrieved successfully");
+    }
   } catch (error) {
     res.status(500).json({ error: "An error occurred while getting products" });
   }
@@ -173,6 +182,7 @@ app.delete("/api/products/:id", async (req, res) => {
   try {
     await handleProductOperation("deleteById", productId);
     res.json({ message: "Product deleted successfully" });
+    console.log("Product deleted successfully with ID:", productId);
   } catch (error) {
     res.status(500).json({ error: "An error occurred while deleting product" });
   }
@@ -196,7 +206,6 @@ async function startServer() {
     console.error("Error connecting to MongoDB:", error);
   }
 }
-
 
 process.on("SIGINT", async () => {
   console.log("Shutting down server...");
