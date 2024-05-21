@@ -5,7 +5,6 @@ import path from "path";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 let productsCache: Product[] | null = null;
-//TODO remove caching on deployment
 
 type Product = {
   id: string;
@@ -19,8 +18,6 @@ export default async function handleGetProductsRequest(
   res: NextApiResponse,
 ) {
   if (req.method === "GET") {
-    console.log("GET request received");
-    console.log("apiUrl", apiUrl);
     try {
       let fetchedProducts: Product[] = [];
       /*  if (productsCache) {
@@ -62,7 +59,7 @@ function getFirstImagePath(productId: string) {
     "uploads",
     productId,
   );
-  let imagePath = "/Rectangle.png";
+  let imagePath = "/no-image.jpg";
 
   if (fs.existsSync(directoryPath)) {
     const files = fs.readdirSync(directoryPath);

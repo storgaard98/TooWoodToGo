@@ -3,15 +3,15 @@ import React from "react";
 const LoginFormular = () => {
   return (
     <>
-      <label className="form-control w-full max-w-xs h-">
+      <label className="form-control w-full max-w-xl pt-11">
         <div className="label">
-          <span className="label-text text-white text-xl">Company Mail</span>
+          <span className="label-text text-white text-4xl">Company Mail</span>
         </div>
-        <div className="relative w-full max-w-xs">
+        <div className="relative w-full max-w-xl">
           <input
             type="text"
             //placeholder="Type here"
-            className="input w-full max-w-sm rounded-3px pr-8 pl-14 text-4xl h-24"
+            className="input w-full max-w-xl rounded-3px pr-8 pl-14 text-4xl h-24"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"

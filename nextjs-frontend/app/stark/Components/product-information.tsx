@@ -117,11 +117,7 @@ const ProductInformation = ({ productID }: propsType) => {
               {product.pathToImages && product.pathToImages.length > 0 ? (
                 <Images imagePaths={product.pathToImages}></Images>
               ) : (
-                <div className="flex justify-center items-center w-full h-full">
-                  <p className="text-stark-blue text-2xl font-light">
-                    Images is loading...
-                  </p>
-                </div>
+                <Images imagePaths={["/no-image.jpg"]}></Images>
               )}
             </div>
             <div className="flex flex-col w-1/2 h-full justify-between rounded-xl pl-2 ">
