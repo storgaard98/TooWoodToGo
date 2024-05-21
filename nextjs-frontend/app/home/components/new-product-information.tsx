@@ -53,9 +53,10 @@ async function storeDataInDatabase(
       // Fetch uploaded image URLs after successful upload
       const data = await response.json();
       console.log("Product ID:", data.productId);
-      return data.productId;
+      return true;
     } else {
       console.error("Failed to upload files");
+      return false;
     }
   }
 }
@@ -72,7 +73,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const productInformationData: ProductInformationData = {
@@ -87,7 +88,8 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
 
     setIsExpanded(false);
     console.log("Submit ", productInformationData);
-    storeDataInDatabase(productInformationData);
+    const success = await storeDataInDatabase(productInformationData);
+    if(success){
     const clearProductInformationData = () => {
       setProductName("");
       setDescription("");
@@ -95,8 +97,8 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
       setAudioBlob(null);
       setUploadedImages([]);
     };
-
     clearProductInformationData();
+  }
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"
