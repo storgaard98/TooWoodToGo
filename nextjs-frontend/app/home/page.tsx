@@ -2,11 +2,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import MakeASaleButton from "./components/make-a-sale-button";
+import Square from "./components/Square"
 import Profile from "./components/profile";
 import NewProductInformation from "./components/new-product-information";
 import Products from "./components/products";
 import Image from "next/image";
-import Square from "./components/square";
 
 type Product = {
   id: string;

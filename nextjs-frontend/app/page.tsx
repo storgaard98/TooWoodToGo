@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import LoginFormular from "./components/login-formular";
 import Link from "next/link";
 import SignInButton from "./components/sign-in-button";
-import Logo from "./components/logo";
+import Logo from "./components/Logo";
 
 const loginPage = () => {
   return (
