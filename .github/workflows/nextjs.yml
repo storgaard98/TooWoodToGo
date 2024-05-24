@@ -34,9 +34,13 @@ jobs:
         with:
           path: ${{ github.workspace }}/nextjs-frontend
 
+      - name: Print working directory
+        run: echo ${{ github.workspace }}
+
 
       - name: Detect package manager
         id: detect-package-manager
+        working-directory: ${{ github.workspace }}/nextjs-frontend
         run: |
           if [ -f "${{ github.workspace }}/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
