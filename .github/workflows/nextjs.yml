@@ -31,9 +31,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: nextjs-frontend
 
       - name: Print working directory
-        working-directory: ${{ github.workspace }}/nextjs-frontend
         run: tree
 
 
