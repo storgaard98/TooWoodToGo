@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "dev2": "next dev --turbo -H 0.0.0.0",
+    "dev2": "next dev --turbo -H 192.168.1.10",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
