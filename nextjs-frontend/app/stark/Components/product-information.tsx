@@ -37,15 +37,12 @@ const ProductInformation = ({ productID }: propsType) => {
   }, [productID]);
 
   async function getProductInformation(productID: string) {
-    const response = await fetch(
-      `/api/fetch-product-by-id-handler?productId=${productID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`/api/products/${productID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
     if (!response.ok) {
       throw new Error("Server response was not ok");
     }
@@ -68,22 +65,23 @@ const ProductInformation = ({ productID }: propsType) => {
   const onAcceptClick = () => {
     {
       price > 0 ? setIsPrice(true) : setIsPrice(false);
-      if (isPrice === false) {
-        fetch("/api/update-price-status-handler", {
+      if (isPrice !== false) {
+        /* fetch(`/api/products/${productID}/updatePriceStatus`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ status: "Accept", id: productID }),
+          body: JSON.stringify({ status: "Accept"}),
+        }); */
+
+        fetch(`/api/products/${productID}/setPrice`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ price }),
         });
       }
-      fetch("/api/set-price-product-handler", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ price, id: productID }),
-      });
     }
   };
 

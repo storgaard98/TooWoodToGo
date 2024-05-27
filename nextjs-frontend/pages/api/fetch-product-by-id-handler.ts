@@ -54,11 +54,11 @@ async function fetchProductById(productId: string): Promise<Product | null> {
 
   if (productData) {
     return {
-      id: productData._id,
+      id: productData.productId,
       productName: productData.productName || "Intet produkt navn",
       price: productData.price || "No price",
-      pathToImages: getAllImagePaths(productData._id),
-      pathToAudio: getProductAudio(productData._id) || "",
+      pathToImages: getAllImagePaths(productData.productId),
+      pathToAudio: getProductAudio(productData.productId) || "",
       date: productData.date || "Ingen dato angivet",
       description: productData.description || "Ingen beskrivelse",
       acceptedPrice: productData.acceptedPrice || false,
