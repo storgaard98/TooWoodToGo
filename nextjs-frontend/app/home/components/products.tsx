@@ -8,7 +8,7 @@ interface ProductsProps {
   price: string;
   pathToImage: string;
   removeProduct: (productId: string) => void;
-  id: string;
+  productId: string;
   description: string;
   quantity: string;
   acceptedPrice: boolean;
@@ -18,16 +18,16 @@ const Products = (props: ProductsProps) => {
   const [showModal, setShowModal] = useState(false);
   const [isAccepted, setIsAccepted] = useState(props.acceptedPrice);
 
-  function updatePriceStatus(status: string) {
-    if (status === "Reject") setShowModal(true);
-    if (status === "Accept") setIsAccepted(true);
-
-    fetch("/api/update-price-status-handler", {
-      method: "POST",
+  function updatePriceStatus(priceStatus: string) {
+    if (priceStatus === "Reject") setShowModal(true);
+    if (priceStatus === "Accept") setIsAccepted(true);
+    console.log("productId: ", props.productId);
+    fetch(`/api/products/${props.productId}/updatePriceStatus`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ status: status, id: props.id }),
+      body: JSON.stringify({ status: priceStatus }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -82,7 +82,7 @@ const Products = (props: ProductsProps) => {
                 <Modal
                   showModal={showModal}
                   setShowModal={setShowModal}
-                  removeProduct={() => props.removeProduct(props.id)}
+                  removeProduct={() => props.removeProduct(props.productId)}
                 />
                 <button
                   className={`badge badge-outline hover:bg-input-box-blue hover:text-white  border-input-box-blue hover:border-transparent bg-accept-blue w-24`}
@@ -101,7 +101,7 @@ const Products = (props: ProductsProps) => {
           <div>
             <button
               className="absolute top-0 right-0 m-1 w-6 h-6 flex items-center justify-center rounded-full bg-cross-red"
-              onClick={() => props.removeProduct(props.id)}
+              onClick={() => props.removeProduct(props.productId)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

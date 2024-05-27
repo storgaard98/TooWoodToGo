@@ -25,7 +25,7 @@ interface ProductInformationData {
 }
 
 async function storeDataInDatabase(
-  productInformationData: ProductInformationData,
+  productInformationData: ProductInformationData
 ) {
   const form = new FormData();
   for (const [key, value] of Object.entries(productInformationData)) {
@@ -44,7 +44,7 @@ async function storeDataInDatabase(
     }
   }
   if (FormData) {
-    const response = await fetch("/api/product-upload-handler", {
+    const response = await fetch("/api/products/upload", {
       method: "POST",
       body: form,
     });
@@ -89,16 +89,16 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
     setIsExpanded(false);
     console.log("Submit ", productInformationData);
     const success = await storeDataInDatabase(productInformationData);
-    if(success){
-    const clearProductInformationData = () => {
-      setProductName("");
-      setDescription("");
-      setQuantity("");
-      setAudioBlob(null);
-      setUploadedImages([]);
-    };
-    clearProductInformationData();
-  }
+    if (success) {
+      const clearProductInformationData = () => {
+        setProductName("");
+        setDescription("");
+        setQuantity("");
+        setAudioBlob(null);
+        setUploadedImages([]);
+      };
+      clearProductInformationData();
+    }
   };
   const formIsExpanded = isExpanded
     ? "opacity-100 translate-y-0"

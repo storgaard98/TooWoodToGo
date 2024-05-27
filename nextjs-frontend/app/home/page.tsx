@@ -1,15 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MakeASaleButton from "./components/make-a-sale-button";
-import Square from "./components/Square"
+import Square from "./components/Square";
 import Profile from "./components/profile";
 import NewProductInformation from "./components/new-product-information";
 import Products from "./components/products";
 import Image from "next/image";
 
 type Product = {
-  id: string;
+  productId: string;
   productName: string;
   description: string;
   quantity: string;
@@ -32,7 +31,7 @@ const Home = () => {
 
   async function fetchProductsFromDatabase() {
     try {
-      const response = await fetch("/api/fetch-products-handler");
+      const response = await fetch("/api/products");
       if (!response.ok) {
         throw new Error("Failed to fetch products from the database");
       }
@@ -43,22 +42,18 @@ const Home = () => {
       return [];
     }
   }
-  function addProduct(product: Product) {
-    setProducts([...products, product]);
-  }
 
   function removeProduct(productId: string) {
     console.log("Product removed with productId: ", productId);
     const updatedProducts = products.filter(
-      (product) => product.id !== productId,
+      (product) => product.productId !== productId,
     );
     setProducts(updatedProducts);
-    fetch("/api/remove-product-handler/", {
+    fetch(`/api/products/${productId}/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ productId: productId }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -69,7 +64,6 @@ const Home = () => {
       });
   }
 
-  //Removed         {!isExpanded && ( )} from the div that wraps the products - the p-tag
   return (
     <>
       <div
@@ -85,10 +79,10 @@ const Home = () => {
           />
           <h1 className="pl-2"> Din produkter: </h1>
           {products.length > 0 ? (
-            <div className="flex flex-col justify-start w-full h-full% overflow-y-auto h-57% rounded-3xl ">
+            <div className="flex flex-col justify-start w-full h-full overflow-y-auto rounded-3xl">
               {products.map((product) => (
                 <Products
-                  key={product.id}
+                  key={product.productId}
                   {...product}
                   removeProduct={removeProduct}
                 />
@@ -113,7 +107,7 @@ const Home = () => {
 };
 
 const noProductsMessage = (
-  <div className="flex flex-col justify-start w-full h-full% overflow-y-auto">
+  <div className="flex flex-col justify-start w-full h-full overflow-y-auto">
     <div className="flex flex-col bg-product-blue rounded-2xl shadow-product-box m-2 items-center justify-center">
       <h2 className="text-center text-xl text-stark-blue text-bold m-2">
         Du har ingen produkter til salg
@@ -127,7 +121,7 @@ const noProductsMessage = (
       <Image
         src="/stark-man.png"
         alt="Small STARK logo"
-        className="bg-stark-orange m-2 rounded-xl "
+        className="bg-stark-orange m-2 rounded-xl"
         width={80}
         height={80}
       />

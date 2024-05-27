@@ -34,10 +34,10 @@ export default async function handleGetProductsRequest(
       }
       const data = await productsResponse.json(); // Convert the response body to a JavaScript object
       fetchedProducts = data.map((item: any) => ({
-        id: item._id,
+        productId: item.productId,
         productName: item.productName || "Intet produkt navn",
         price: item.price || "",
-        pathToImage: getFirstImagePath(item._id),
+        pathToImage: getFirstImagePath(item.productId),
         description: item.description || "Ingen beskrivelse angivet",
         acceptedPrice: item.acceptedPrice,
       }));
