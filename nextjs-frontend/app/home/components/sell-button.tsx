@@ -10,7 +10,7 @@ const SellButton = ({ isExpanded }: propsType) => {
 
   return (
     <div
-      className={`absolute bottom-32 flex flex-col w-full justify-end items-center z-20 transition-all duration-700 ease-in-out transform ${sellButtonIsExpanded}`}
+      className={`absolute bottom-10 flex flex-col w-full justify-end items-center z-20 transition-all duration-700 ease-in-out transform ${sellButtonIsExpanded}`}
     >
       <button className="btn btn-outline w-2/3 border-white border-1 rounded-lg">
         <p className="text-white text-xl">Sælg</p>

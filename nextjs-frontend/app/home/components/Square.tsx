@@ -3,7 +3,7 @@ import React from "react";
 type propsType = { isExpanded: boolean };
 
 const Square = ({ isExpanded }: propsType) => {
-  const sizeOfSquareClass = isExpanded ? "h-16/17" : "h-1/5";
+  const sizeOfSquareClass = isExpanded ? "h-full" : "h-1/5";
   //TODO make rounded corners
   return (
     <div

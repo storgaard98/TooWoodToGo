@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "jest",
     "dev2": "next dev --turbo -H 192.168.1.10",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "dev3":"next dev --turbo -H 192.168.1.186"
   },
   "dependencies": {
     "@babel/preset-env": "^7.24.4",
