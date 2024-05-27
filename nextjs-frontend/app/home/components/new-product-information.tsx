@@ -127,7 +127,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
             id="productName"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
-            className="input rounded-lg text-m bg-input-box-blue text-white"
+            className="p-1 rounded-lg text-m bg-input-box-blue text-white"
           />
         </label>
         <label
@@ -143,7 +143,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="input rounded-lg text-m h-full bg-input-box-blue text-white pr-28"
+            className="p-1 rounded-lg text-m h-full bg-input-box-blue text-white pr-28"
           />
           <div className="absolute right-5 mt-10">
             <AudioRecorder onSaveRecording={setAudioBlob} />
@@ -159,7 +159,7 @@ const NewProductInformation = ({ isExpanded, setIsExpanded }: propsType) => {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="Eksempel: 2 paller"
-            className="input rounded-lg text-m bg-input-box-blue text-white "
+            className="p-1 rounded-lg text-m bg-input-box-blue text-white "
           />
         </label>
       </div>

@@ -94,8 +94,8 @@ const Home = () => {
         </div>
 
         <Square isExpanded={isExpanded} />
-        <div className="absolute flex flex-col bottom-10 justify-center items-center overflow-y-hidden">
-          <MakeASaleButton onButtonClick={toggleSquare} />
+        <div className="absolute flex flex-col bottom-10 justify-center items-center">
+        <MakeASaleButton onButtonClick={toggleSquare} />
         </div>
       </div>
       <NewProductInformation
